@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="web," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Da13's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="之前在看xss的时候老是不知道为什么不同编码，有的会被解析有的不会被解析，所以就想静下来，找个时间把这些基础点理清楚了。毕竟基础是很重要！！！ 中途我参考过http:&#x2F;&#x2F;bobao.360.cn&#x2F;learning&#x2F;detail&#x2F;292.html讲的很详细了。下面是我自己的总结。 html实体我是由浅入深的方式来思考的，平时我遇到的比较频繁的就是实体编码，也是最基础的。可以看看下面的这个例子 1&amp;l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对浏览器和html解析机制的理解">
+<meta property="og:url" content="http://yoursite.com/2019/11/09/%E6%B5%85%E6%9E%90html%E8%A7%A3%E6%9E%90%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="Da13&#39;s blog">
+<meta property="og:description" content="之前在看xss的时候老是不知道为什么不同编码，有的会被解析有的不会被解析，所以就想静下来，找个时间把这些基础点理清楚了。毕竟基础是很重要！！！ 中途我参考过http:&#x2F;&#x2F;bobao.360.cn&#x2F;learning&#x2F;detail&#x2F;292.html讲的很详细了。下面是我自己的总结。 html实体我是由浅入深的方式来思考的，平时我遇到的比较频繁的就是实体编码，也是最基础的。可以看看下面的这个例子 1&amp;l">
+<meta property="og:image" content="https://s2.ax1x.com/2019/11/09/MmSysU.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/11/08/Me92Yn.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/11/09/MeFyj0.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/11/09/Mekm2n.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/11/09/Me2VuF.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/11/09/MeTJDx.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/11/09/MebRIK.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/11/09/MeOYqA.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/11/09/MeXPeA.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/11/09/MeXmQg.png">
+<meta property="article:published_time" content="2019-11-09T06:05:57.929Z">
+<meta property="article:modified_time" content="2019-11-09T06:05:57.929Z">
+<meta property="article:author" content="Da13">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/11/09/MmSysU.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/09/浅析html解析机制/"/>
+
+
+
+
+
+  <title>对浏览器和html解析机制的理解 | Da13's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Da13's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">低调做人，高调做事</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/%E6%B5%85%E6%9E%90html%E8%A7%A3%E6%9E%90%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Da13">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/123.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Da13's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">对浏览器和html解析机制的理解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-09T14:05:57+08:00">
+                2019-11-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前在看xss的时候老是不知道为什么不同编码，有的会被解析有的不会被解析，所以就想静下来，找个时间把这些基础点理清楚了。毕竟基础是很重要！！！</p>
+<p>中途我参考过<br><a href="http://bobao.360.cn/learning/detail/292.html" target="_blank" rel="noopener">http://bobao.360.cn/learning/detail/292.html</a><br>讲的很详细了。下面是我自己的总结。</p>
+<h1 id="html实体"><a href="#html实体" class="headerlink" title="html实体"></a>html实体</h1><p>我是由浅入深的方式来思考的，平时我遇到的比较频繁的就是实体编码，也是最基础的。可以看看下面的这个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;&amp;#60;img src&#x3D;x onerror&#x3D;alert(4)&amp;#62;&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里对img标签的&lt;&gt;符号进行了”字符值引用”。什么是字符值引用呢？这里简单做个介绍：</p>
+<p>字符实体(character entities)：</p>
+<p>字符实体是一个转义序列，它定义了一般无法在文本内容中输入的单个字符或符号。一个字符实体以一个&amp;符号开始，后面跟着一个预定义的实体的名称，或是一个#符号以及字符的十进制数字。</p>
+<p>HTML字符实体(HTML character entities)：</p>
+<p>因为有些字符浏览器会把他们误以为功能符号，所以对这类字符专门“预留”了。也就是说如果希望这些字符被显示在页面上那么就需要在HTML中使用对应的字符实体。比如：&lt;小于号的实体名称是&amp;lt;实体编号为&amp;#60;</p>
+<p>但是有些字符是没有实体名称但是有实体编号的。这里字符值引用就是引用实体编号，对应的字符实体引用为‘&amp;lt;’。字符实体引用也被叫做“实体引用”或“实体”。</p>
+<p>那么上面这个代码能正常执行吗？我们放图：</p>
+<p><img src="https://s2.ax1x.com/2019/11/09/MmSysU.png" alt="image"></p>
+<p>这里可以看到并没有执行成功。那么为什么html不会去执行这个编码呢？</p>
+<p>html解析过程中，当遇到第一个’&lt;’或者’&gt;’这类符号后会进入”标签开始状态”,然后转变为”标签名状态”,接着是”前属性状态”，最后到”数据状态”。当解析器解析到”数据状态”时，会继续解析，直到最后结束符号出现。</p>
+<p>要说明的一点是，只要当html遇到标签开始状态时，才会去解析下面的内容。这里的标签开始状态是&lt;div&gt;,所以遇到后面的&amp;#符号只是会对其解码但是并不会回到”标签名开始”阶段,所以并不会创立新标签。</p>
+<p>那是不是这里如果把&lt;div&gt;标签去掉后，让实体编号作为开始，是不是解码后就到了”标签名开始”阶段呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;#60;img src&#x3D;x onerror&#x3D;alert(4)&amp;#62;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2019/11/08/Me92Yn.png" alt="image"></p>
+<p>看来还是没法，我认为是当html解析器将实体解码后，不会返回去判断该字符是否是&lt;&gt;这类”标签名开始”符，所以就依然不能执行成功。</p>
+<p>那么如果将特殊字符进行实体编码后就不能绕过让他执行了吗？这个后面讲到javascript解析的时候会说到。</p>
+<h1 id="URL解析"><a href="#URL解析" class="headerlink" title="URL解析"></a>URL解析</h1><p>开始之前先说明一个点：浏览器在解析HTML文档时无论按照什么顺序，主要有三个过程：HTML解析、JS解析和URL解析，每个解析器负责HTML文档中各自对应部分的解析工作。之前说到的实体编码是html解析范畴。</p>
+<p>这里我先贴出一个代码，看看会不会执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href&#x3D;&quot;%6a%61%76%61%73%63%72%69%70%74:%61%6c%65%72%74%28%31%29&quot;&gt;1&lt;&#x2F;a&gt;&#x2F;&#x2F;javascript:alert(4)</span><br></pre></td></tr></table></figure>
+
+<p>这里的href是经过url编码的，那么会不会被url解析器解析成javascript:alert(4)呢？</p>
+<p><img src="https://s2.ax1x.com/2019/11/09/MeFyj0.png" alt="image"></p>
+<p>这里可以看到连接并没有解析成javascript:alert(4),仍然是原来的字符串。是不是可能会想URL解码之后Javascript解析器完成解码操作，脚本应该会正常执行啊，这里就有一个URL解析过程中的一个细节了，<strong>不能对协议类型进行任何的编码操作</strong>，否则URL解析器会认为它无类型，所以不会对它进行url解码。</p>
+<p>那么如果我们不把协议编码呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href&#x3D;&quot;javascript%3aalert(3)&quot;&gt;3&lt;&#x2F;a&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2019/11/09/Mekm2n.png" alt="image"></p>
+<p>依然没有url解析。可以认为该原则对协议后面的“：”（冒号）同样适用。</p>
+<p>那如果用下面的例子呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href&#x3D;&quot;&amp;#x6a;&amp;#x61;&amp;#x76;&amp;#x61;&amp;#x73;&amp;#x63;&amp;#x72;&amp;#x69;&amp;#x70;&amp;#x74;:%61%6c%65%72%74%28%32%29&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里我先进行实体编码了javascript，然后用url编码了alert(2)。</p>
+<p><img src="https://s2.ax1x.com/2019/11/09/Me2VuF.png" alt="image"></p>
+<p>这里对javascript编码了为什么还能执行呢？</p>
+<p>因为”javascript”是做的HTML实体编码，HTML解析器工作时，href里的HTML实体会被解码，”javascript”协议在第一步被HTML解码了，URL解析器开始识别，在这时，“javascript”协议已经被解码，后面的字符串能够被URL解析器正确识别。然后URL解析器继续解析链接剩下的部分。最后由js解析器解析进行弹窗。</p>
+<p>那这里为什么html解析器会对href里面进行解码呢？</p>
+<p>这里有三种情况html解析器可以容纳字符实体，“数据状态中的字符引用”，“RCDATA状态中的字符引用”和“属性值状态中的字符引用”。在这些状态中HTML字符实体将会从“&amp;#…”形式解码，对应的解码字符会被放入数据缓冲区中。而这里当html解析器碰到&lt;符号后会进入标签开始状态，然后就会遇到herf中的“属性值状态中的字符引用”的情况，对该字符串进行解析。</p>
+<p>其次，URL编码过程使用UTF-8编码类型来编码每一个字符。如果你尝试着将URL链接做了其他编码类型的编码，URL解析器就可能不会正确识别。</p>
+<h1 id="JavaScript-解析"><a href="#JavaScript-解析" class="headerlink" title="JavaScript 解析"></a>JavaScript 解析</h1><p>这里得先说一下，JavaScript语言是一门内容无关语言。所以与html解析会有一些不一样。</p>
+<p>先看看这个代码可以执行吗？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;&amp;#97;&amp;#108;&amp;#101;&amp;#114;&amp;#116&amp;#40;&amp;#57;&amp;#41;&amp;#59&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.ax1x.com/2019/11/09/MeTJDx.png" alt="image"></p>
+<p>可以看到这里并不会执行，不应该是html解析成alert(9)后然后js执行吗？</p>
+<p>这就是js和html解析不一样的地方，所有的“script”块都属于“原始文本”元素。“script”块有个有趣的属性：在块中的字符引用并不会被解析和解码。所以如果攻击者尝试着将输入数据编码成字符实体并将其放在script块中，它将不会被执行。</p>
+<p>那么不用实体编码用unicode呢？</p>
+<p><strong>Unicode转义序列只有在标识符名称里不被当作字符串，也只有在标识符名称里的编码字符能够被正常的解析。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;\u0061\u006c\u0065\u0072\u0074\u0028\u0031\u0031\u0029&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2019/11/09/MebRIK.png" alt="image"></p>
+<p>这里并没有执行是有两个原因</p>
+<ol>
+<li>里面对控制字符（）进行了编码。但是当js解析控制字符时，例如单引号、双引号、圆括号等等，它们将不会被解释成控制字符，而仅仅被解码并解析为标识符名称或者字符串常量。</li>
+<li>这里就算被js解析成功也是alert(1)并不是标识符。</li>
+</ol>
+<p>所以这里并不会被解析成功。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;\u0061\u006c\u0065\u0072\u0074(\u0031\u0032)&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2019/11/09/MeOYqA.png" alt="image"></p>
+<p>这里可以看到虽然（）符号没有编码，但是就是因为解码后是非标识符所以也不会被弹窗。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(&#39;13\u0027)&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2019/11/09/MeXPeA.png" alt="image"></p>
+<p>这里就是因为对控制符进行编码，但是js解析只会把他当做字符常量来处理。所以也不会执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(&#39;14\u000a&#39;)&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2019/11/09/MeXmQg.png" alt="image"></p>
+<p>这里的\u000a是换行符，但是这里可以看到并没有执行换行的功能，进行了弹窗。</p>
+<p>写到这里可能对html基本的html解析，url解析，javascript解析有了一定的初步了解。但是xss攻击千变万化，以上只是作者的个人理解，只有通过不断实战，刷题才能更加熟练，理解的更加深刻。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web/" rel="tag"># web</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/06/%E7%94%B1Roarctf%20Easy%20Calc%E5%BC%95%E8%B5%B7%E5%AF%B9http%E8%B5%B0%E7%A7%81%E5%92%8C%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BB%95%E8%BF%87waf%E7%9A%84%E6%80%9D%E8%80%83/" rel="next" title="由Roarctf Easy Calc引起对http走私和分块传输绕过waf的思考">
+                <i class="fa fa-chevron-left"></i> 由Roarctf Easy Calc引起对http走私和分块传输绕过waf的思考
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/21/%E8%BF%87%E6%BB%A4in,or%E5%AD%97%E7%AC%A6%E7%9A%84sql%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/" rel="prev" title="过滤in,or字符的sql注入学习">
+                过滤in,or字符的sql注入学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/123.jpg"
+                alt="Da13" />
+            
+              <p class="site-author-name" itemprop="name">Da13</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.virtua1.cn" title="Virtua1" target="_blank">Virtua1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://yml-sec.top" title="夜莫离" target="_blank">夜莫离</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://nightrainy.github.io/" title="知世" target="_blank">知世</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://reb0rn.design" title="张灵灵" target="_blank">张灵灵</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#html实体"><span class="nav-number">1.</span> <span class="nav-text">html实体</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#URL解析"><span class="nav-number">2.</span> <span class="nav-text">URL解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript-解析"><span class="nav-number">3.</span> <span class="nav-text">JavaScript 解析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Da13</span>
+
+  
+</div>
+
+
+ 
+
+
+
+  <span class="post-meta-divider"></span>
+
+
+
+
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i>
+<span id="busuanzi_container_site_uv">
+  本站总访客数:<span id="busuanzi_value_site_uv"></span>&nbsp;&nbsp;| 
+</span>
+<span id="busuanzi_container_site_pv">
+    &nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+</div>
+</div>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Da13's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="之前在做roarctf第一个web时候读到过关于php解析漏洞的文章。 https:&#x2F;&#x2F;www.freebuf.com&#x2F;articles&#x2F;web&#x2F;213359.html 但是用的是在num参数前面构造一个%20来绕过waf。  但是后来看群里有个师傅提起了http走私协议。于是就去学习了一下。 HTTP走私原理：HTTP请求走私漏洞的原因是由于HTTP规范提供了两种不同方式来指定请求的结束位置，它">
+<meta property="og:type" content="article">
+<meta property="og:title" content="由Roarctf Easy Calc引起对http走私和分块传输绕过waf的思考">
+<meta property="og:url" content="http://yoursite.com/2019/11/06/%E7%94%B1Roarctf%20Easy%20Calc%E5%BC%95%E8%B5%B7%E5%AF%B9http%E8%B5%B0%E7%A7%81%E5%92%8C%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BB%95%E8%BF%87waf%E7%9A%84%E6%80%9D%E8%80%83/index.html">
+<meta property="og:site_name" content="Da13&#39;s blog">
+<meta property="og:description" content="之前在做roarctf第一个web时候读到过关于php解析漏洞的文章。 https:&#x2F;&#x2F;www.freebuf.com&#x2F;articles&#x2F;web&#x2F;213359.html 但是用的是在num参数前面构造一个%20来绕过waf。  但是后来看群里有个师傅提起了http走私协议。于是就去学习了一下。 HTTP走私原理：HTTP请求走私漏洞的原因是由于HTTP规范提供了两种不同方式来指定请求的结束位置，它">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/31/KTnENt.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/31/KTlKTH.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/31/KTlz9I.png">
+<meta property="article:published_time" content="2019-11-05T16:29:00.455Z">
+<meta property="article:modified_time" content="2019-11-05T16:29:00.455Z">
+<meta property="article:author" content="Da13">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/10/31/KTnENt.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/06/由Roarctf Easy Calc引起对http走私和分块传输绕过waf的思考/"/>
+
+
+
+
+
+  <title>由Roarctf Easy Calc引起对http走私和分块传输绕过waf的思考 | Da13's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Da13's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">低调做人，高调做事</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/06/%E7%94%B1Roarctf%20Easy%20Calc%E5%BC%95%E8%B5%B7%E5%AF%B9http%E8%B5%B0%E7%A7%81%E5%92%8C%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BB%95%E8%BF%87waf%E7%9A%84%E6%80%9D%E8%80%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Da13">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/123.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Da13's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">由Roarctf Easy Calc引起对http走私和分块传输绕过waf的思考</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-06T00:29:00+08:00">
+                2019-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前在做roarctf第一个web时候读到过关于php解析漏洞的文章。</p>
+<p><a href="https://www.freebuf.com/articles/web/213359.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/213359.html</a></p>
+<p>但是用的是在num参数前面构造一个%20来绕过waf。</p>
+<p><img src="https://s2.ax1x.com/2019/10/31/KTnENt.png" alt="image"></p>
+<p>但是后来看群里有个师傅提起了http走私协议。于是就去学习了一下。</p>
+<h1 id="HTTP走私原理："><a href="#HTTP走私原理：" class="headerlink" title="HTTP走私原理："></a>HTTP走私原理：</h1><p>HTTP请求走私漏洞的原因是由于HTTP规范提供了两种不同方式来指定请求的结束位置，它们是Content-Length标头和Transfer-Encoding标头，Content-Length标头简单明了，它以字节为单位指定消息内容体的长度。</p>
+<p>Transfer-Encoding标头用于指定消息体使用分块编码（Chunked Encode），也就是说消息报文由一个或多个数据块组成，每个数据块大小以字节为单位（十六进制表示） 衡量，后跟换行符，然后是块内容，最重要的是：整个消息体以大小为0的块结束，也就是说解析遇到0数据块就结束。</p>
+<p>相当于我发送请求，包含Content-Length，前端服务器解析后没有问题发送给后端服务器，但是我在请求时后面还包含了Transfer-Encoding，这样后端服务器进行解析便可执行我写在下面的一些命令，这样便可以绕过前端的waf。</p>
+<h1 id="走私的四种方法："><a href="#走私的四种方法：" class="headerlink" title="走私的四种方法："></a>走私的四种方法：</h1><h2 id="CL不为0时"><a href="#CL不为0时" class="headerlink" title="CL不为0时"></a>CL不为0时</h2><p>这种情况一般发生在get请求下，当前端允许content-length，后端不允许时，此时后端服务器就不会解析content-length，这样就可能绕过waf。</p>
+<h2 id="CL-CL型"><a href="#CL-CL型" class="headerlink" title="CL-CL型"></a>CL-CL型</h2><p>这种利用的前提条件是服务器不会返回400错误。但是前端服务器按照第一个Content-Length的值对请求进行处理，而后端源站服务器按照第二个Content-Length的值进行处理,这样便有可能引发请求走私。比如出现下面这种情况时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Content-Length:68</span><br><span class="line">Content-Length:5 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">num&#x3D;1GET &#x2F;calc.php?num&#x3D;1 HTTP&#x2F;1.1</span><br></pre></td></tr></table></figure>
+
+<p>前端先解析第一个cl为68，就会把下面的“num=1GET /calc.php?num=1 HTTP/1.1”都当做请求的内容。但是后端会解析第二个cl，也就是说后端只解析“num=1”<br>后面的请求体就作为下次请求的请求头（前提是Connection: keep-alive）。这样就会引发走私。</p>
+<h2 id="CL-TE"><a href="#CL-TE" class="headerlink" title="CL-TE"></a>CL-TE</h2><p>就是当收到存在两个请求头的请求包时，前端代理服务器只处理Content-Length这一请求头，而后端服务器会忽略掉Content-Length，处理Transfer-Encoding这一请求头。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Content-Length:123</span><br><span class="line">Transfer-Encoding: chunked</span><br></pre></td></tr></table></figure>
+
+<p>这里的chunked对请求内容进行分块编码，并且直到有\r\n的时候才结束。</p>
+<h2 id="TE-CL"><a href="#TE-CL" class="headerlink" title="TE-CL"></a>TE-CL</h2><p>所谓TE-CL，就是当收到存在两个请求头的请求包时，前端代理服务器处理Transfer-Encoding这一请求头，而后端服务器处理Content-Length请求头。</p>
+<h1 id="在calc的题目中："><a href="#在calc的题目中：" class="headerlink" title="在calc的题目中："></a>在calc的题目中：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">if(!isset($_GET[&#39;num&#39;]))&#123;</span><br><span class="line">    show_source(__FILE__);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">        $str &#x3D; $_GET[&#39;num&#39;];</span><br><span class="line">        $blacklist &#x3D; [&#39; &#39;, &#39;\t&#39;, &#39;\r&#39;, &#39;\n&#39;,&#39;\&#39;&#39;, &#39;&quot;&#39;, &#39;&#96;&#39;, &#39;\[&#39;, &#39;\]&#39;,&#39;\$&#39;,&#39;\\&#39;,&#39;\^&#39;];</span><br><span class="line">        foreach ($blacklist as $blackitem) &#123;</span><br><span class="line">                if (preg_match(&#39;&#x2F;&#39; . $blackitem . &#39;&#x2F;m&#39;, $str)) &#123;</span><br><span class="line">                        die(&quot;what are you want to do?&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        eval(&#39;echo &#39;.$str.&#39;;&#39;);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里后端对特殊符号做了一些过滤，而且除了这个过滤，还有waf拦截字符串的输入。然后就想利用http走私来绕过。</p>
+<p>因为这里是get请求，而content-length是在post才会有用，所以这里跟cl其实关系不大，但是利用起来也不会报错。</p>
+<p>这里我最开始就是想用cl和chunked结合起来去绕过。</p>
+<p><img src="https://s2.ax1x.com/2019/10/31/KTlKTH.png" alt="image"></p>
+<p>这里的cl设置多少都无所谓，只要设置了chunked，并且最后由\r\n那么就能成功执行，如果没有\r\n那么就会一直waiting。</p>
+<p>于是我想着能不能重新构造一个请求头来试试：</p>
+<p><img src="https://s2.ax1x.com/2019/10/31/KTlz9I.png" alt="image"></p>
+<p>这里第一个请求头那一定得是keep-alive，然后设置content-length为5。目的是让tcp能够持续响应，而且这里服务器会因为cl为5只识别num=1，后面的一大串就被安排到了下一轮的请求里。（最后的chunked后面还是得跟两次\r\n来控制块）</p>
+<p>说到这里，感觉这道题其实没怎么利用到http走私，主要还是用分块传输chunked方法来绕过waf。但是毕竟也是通过这个点学习了http走私的知识，所以就记录下来。</p>
+<p>如果各位有看到不对的地方，还请斧正！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/09/%E6%B5%85%E6%9E%90html%E8%A7%A3%E6%9E%90%E6%9C%BA%E5%88%B6/" rel="prev" title="对浏览器和html解析机制的理解">
+                对浏览器和html解析机制的理解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/123.jpg"
+                alt="Da13" />
+            
+              <p class="site-author-name" itemprop="name">Da13</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.virtua1.cn" title="Virtua1" target="_blank">Virtua1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://yml-sec.top" title="夜莫离" target="_blank">夜莫离</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://nightrainy.github.io/" title="知世" target="_blank">知世</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://reb0rn.design" title="张灵灵" target="_blank">张灵灵</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP走私原理："><span class="nav-number">1.</span> <span class="nav-text">HTTP走私原理：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#走私的四种方法："><span class="nav-number">2.</span> <span class="nav-text">走私的四种方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CL不为0时"><span class="nav-number">2.1.</span> <span class="nav-text">CL不为0时</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CL-CL型"><span class="nav-number">2.2.</span> <span class="nav-text">CL-CL型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CL-TE"><span class="nav-number">2.3.</span> <span class="nav-text">CL-TE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TE-CL"><span class="nav-number">2.4.</span> <span class="nav-text">TE-CL</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在calc的题目中："><span class="nav-number">3.</span> <span class="nav-text">在calc的题目中：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Da13</span>
+
+  
+</div>
+
+
+ 
+
+
+
+  <span class="post-meta-divider"></span>
+
+
+
+
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i>
+<span id="busuanzi_container_site_uv">
+  本站总访客数:<span id="busuanzi_value_site_uv"></span>&nbsp;&nbsp;| 
+</span>
+<span id="busuanzi_container_site_pv">
+    &nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+</div>
+</div>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
