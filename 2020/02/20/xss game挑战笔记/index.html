@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>xss game挑战笔记 | Da13&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="文章先发于星盟公众号 前话之前对xss接触比较少，只是会基础的alert操作，至于原理，为什么可以这么编码等问题一直都是模模糊糊的，所以这段时间恶补一下xss基础知识。大佬略过，如果文章内容有什么不对的地方还请大家斧正！ 在文章开始之前先放两个链接，都是可以加深对js,html编码理解的文章，个人觉得非常优秀。 《XSS与字符编码的那些事儿》—-&gt;http:&#x2F;&#x2F;www.2cto.com&#x2F;ar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xss game挑战笔记">
+<meta property="og:url" content="http://yoursite.com/2020/02/20/xss%20game%E6%8C%91%E6%88%98%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Da13&#39;s blog">
+<meta property="og:description" content="文章先发于星盟公众号 前话之前对xss接触比较少，只是会基础的alert操作，至于原理，为什么可以这么编码等问题一直都是模模糊糊的，所以这段时间恶补一下xss基础知识。大佬略过，如果文章内容有什么不对的地方还请大家斧正！ 在文章开始之前先放两个链接，都是可以加深对js,html编码理解的文章，个人觉得非常优秀。 《XSS与字符编码的那些事儿》—-&gt;http:&#x2F;&#x2F;www.2cto.com&#x2F;ar">
+<meta property="og:image" content="http://www.atomsec.org/wp-content/uploads/2015/12/xc2.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/14/1j4McQ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/14/1j5l8O.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/14/1joa38.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/14/1j79L4.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/14/1j7It1.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/14/1jb3xf.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/14/1jbVKO.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/14/1jqEYn.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/14/1jq6pt.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/14/1jqqXT.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/14/1jLYNj.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/15/1zpC01.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/15/1zpjEt.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/16/3SxZXd.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/16/3pVQN4.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/16/3pVqbT.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/16/3pKzGD.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/16/3pQGnA.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/16/3pQh3F.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/16/3pJip6.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/16/3pJBcT.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/16/3pNsu8.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/16/3pUNrT.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/16/3pUwa4.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/16/3pdUN4.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/16/3pdbVS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3EUgYV.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3EbA8P.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3EqyYn.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3ELZ7Q.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3ELoDS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3EO82t.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/14/1jdcQS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/14/1jwQOg.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/14/1jBWee.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9113969-65f36ba69be39d2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/562/format/webp">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/14/1jDxBD.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3VzPz9.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3ZpyPU.png">
+<meta property="article:published_time" content="2020-02-19T16:04:14.251Z">
+<meta property="article:modified_time" content="2020-02-19T16:58:05.748Z">
+<meta property="article:author" content="Da13">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="xss">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.atomsec.org/wp-content/uploads/2015/12/xc2.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Da13&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Da13&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-xss game挑战笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/20/xss%20game%E6%8C%91%E6%88%98%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2020-02-19T16:04:14.251Z" itemprop="datePublished">2020-02-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/web/">web</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      xss game挑战笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>文章先发于星盟公众号</p>
+<h1 id="前话"><a href="#前话" class="headerlink" title="前话"></a>前话</h1><p>之前对xss接触比较少，只是会基础的alert操作，至于原理，为什么可以这么编码等问题一直都是模模糊糊的，所以这段时间恶补一下xss基础知识。大佬略过，如果文章内容有什么不对的地方还请大家斧正！</p>
+<p>在文章开始之前先放两个链接，都是可以加深对js,html编码理解的文章，个人觉得非常优秀。</p>
+<p>《XSS与字符编码的那些事儿》—-&gt;<a href="http://www.2cto.com/article/201310/251830.html" target="_blank" rel="noopener">http://www.2cto.com/article/201310/251830.html</a></p>
+<p>《深入理解浏览器解析机制和XSS向量编码》——&gt;<a href="http://bobao.360.cn/learning/detail/292.html" target="_blank" rel="noopener">http://bobao.360.cn/learning/detail/292.html</a></p>
+<p>如果有刚开始接触xss的像我这样的新手，应该会有和我一样的经历，就是对html编码，js编码分不清楚。什么时候该用html编码，什么时候用js编码呢？</p>
+<p>本人对这些进行了一个简单的概括：</p>
+<p><strong>最常见的html编码有</strong>：html实体编码。分为十进制和十六进制</p>
+<p>如把尖括号编码[ &lt; ]  十进制: &amp;#60;  html十六进制:&amp;#x3c;(这里的分号是可以省掉的)</p>
+<p><strong>最常见的js编码有</strong>:八进制,十六进制,jsunicode编码。</p>
+<p>如把尖括号编码[ &lt; ]  八进制:\74  十六进制:\x3c  unicode:\u003c</p>
+<p>js和html不是同一种语言，所以就分为html解码和js解码。html只能识别属于自己的编码，js也是一样。因此html解析起并不能识别十六进制或者八进制的js编码。当然js也不能识别html实体编码。所以一般在domxss中大多是不用html编码的。再说一句，浏览器在解析代码的时候是先html解码，然后url解码，最后再运行js解析。所以这里可能就会有一种情况绕过，就是实体编码和js编码一起合作。上面的这边文章有例子可以看看，<a href="http://www.2cto.com/article/201310/251830.html" target="_blank" rel="noopener">《XSS与字符编码的那些事儿》</a>说的已经很清楚了就不赘述了。</p>
+<p>剩下的就是url编码和base64解码，这两个大家都很熟悉就不多说了。</p>
+<p>接下来就记录一下菜鸡的我做xss challengs的思路和心得！</p>
+<p>tip:(因为本人是用比较常见的chrom浏览器去复现,所以关于需要其他浏览器才能实现的情况只做思路说明。)</p>
+<h1 id="Challengs"><a href="#Challengs" class="headerlink" title="Challengs"></a>Challengs</h1><h2 id="第一关"><a href="#第一关" class="headerlink" title="第一关"></a>第一关</h2><p>第一关很简单什么都不用编码直接输入payload就会弹窗<br><img src="http://www.atomsec.org/wp-content/uploads/2015/12/xc2.png" alt="image"></p>
+<h2 id="第二关"><a href="#第二关" class="headerlink" title="第二关"></a>第二关</h2><p><img src="https://s2.ax1x.com/2020/02/14/1j4McQ.png" alt="image"></p>
+<p>这里提示说要闭合上一个标签。所以也很简单，直接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;script&gt;alert(document.domain)&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2020/02/14/1j5l8O.png" alt="image"></p>
+<h2 id="第三关"><a href="#第三关" class="headerlink" title="第三关"></a>第三关</h2><p><img src="https://s2.ax1x.com/2020/02/14/1joa38.png" alt="image"></p>
+<p>这里很明显在box中进行xss。看似只有这几个选项实际上是post传参的，可以bp抓包修改。也可以在element里面改。</p>
+<p><img src="https://s2.ax1x.com/2020/02/14/1j79L4.png" alt="image"></p>
+<h2 id="第四关"><a href="#第四关" class="headerlink" title="第四关"></a>第四关</h2><p><img src="https://s2.ax1x.com/2020/02/14/1j7It1.png" alt="image"><br>这里通过提示可以知道有转义</p>
+<p>但是可以看到hiden这p3也会post上去,我们在post上面做文章<br><img src="https://s2.ax1x.com/2020/02/14/1jb3xf.png" alt="image"><br><img src="https://s2.ax1x.com/2020/02/14/1jbVKO.png" alt="image"></p>
+<h2 id="第五关"><a href="#第五关" class="headerlink" title="第五关"></a>第五关</h2><p><img src="https://s2.ax1x.com/2020/02/14/1jqEYn.png" alt="image"></p>
+<p>这里设置了长度。但是也不难，初学ctf的人应该都遇到过这个情况，改掉maxlength就行了。</p>
+<p><img src="https://s2.ax1x.com/2020/02/14/1jq6pt.png" alt="image"></p>
+<h2 id="第六关"><a href="#第六关" class="headerlink" title="第六关"></a>第六关</h2><p>输入”&gt;<script>alert(document.domain)</script>&lt;发现&lt;&gt;被过滤<br><img src="https://s2.ax1x.com/2020/02/14/1jqqXT.png" alt="image"><br>这里我们换个思路，既然闭合不了就顺着他的意思，给他加个属性。</p>
+<p>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot; onclick&#x3D;alert(document.domain) id&#x3D;&quot;a</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2020/02/14/1jLYNj.png" alt="image"></p>
+<h2 id="第七关"><a href="#第七关" class="headerlink" title="第七关"></a>第七关</h2><p><img src="https://s2.ax1x.com/2020/02/15/1zpC01.png" alt="image"></p>
+<p>这里可以知道和上节有点相似。但是按照上节的payload试试呢？</p>
+<p><img src="https://s2.ax1x.com/2020/02/15/1zpjEt.png" alt="image"><br>这里我们可以看到依然可以弹窗。但是和上节不同的地方就是value。上节中value并没有值，而这里有了。说明什么？</p>
+<p>这里对”进行了过滤，所以这里的”能正确出现在框里面，当作value的值。上节中没有过滤”符号所以value值是空。</p>
+<h2 id="第八关"><a href="#第八关" class="headerlink" title="第八关"></a>第八关</h2><p><img src="https://s2.ax1x.com/2020/02/16/3SxZXd.png" alt="image"></p>
+<p>这里看到提示说用javascript协议。这里没有什么过滤直接xss</p>
+<p><img src="https://s2.ax1x.com/2020/02/16/3pVQN4.png" alt="image"></p>
+<h2 id="第九关"><a href="#第九关" class="headerlink" title="第九关"></a>第九关</h2><p><img src="https://s2.ax1x.com/2020/02/16/3pVqbT.png" alt="image"></p>
+<p>这里提示说要用utf-7的编码来绕过。并且目前只有IE7下才会成功。</p>
+<p>payload构造参考的Nixawk的博客<a href="http://blog.csdn.net/nixawk/article/details/28038509" target="_blank" rel="noopener">http://blog.csdn.net/nixawk/article/details/28038509</a></p>
+<p>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p1&#x3D;a%2BACI++onmouseover%2BAD0AIg-javascript%3Aalert%28document.domain%29%2BACI++id%2BAD0AIg-x&amp;charset&#x3D;UTF-7</span><br></pre></td></tr></table></figure>
+<p>因为UTF-7编码需要结合utf-7bom，这部分不是很熟悉还需要学习一下。</p>
+<h2 id="第十关"><a href="#第十关" class="headerlink" title="第十关"></a>第十关</h2><p><img src="https://s2.ax1x.com/2020/02/16/3pKzGD.png" alt="image"></p>
+<p>这里我们可以看到对domain这个特殊字眼进行了过滤。</p>
+<p>当我输入domain的时候发现对这个特殊字符串进行了识别然后替换成了空字符串。这样又一个简单的绕过方法，就是在domain中间加入一个domain。这种类似的方法sql中出现过很多次了。</p>
+<p>paylaod:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;script&gt;alert(document.dodomainmain)&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.ax1x.com/2020/02/16/3pQGnA.png" alt="image"></p>
+<h2 id="第十一关"><a href="#第十一关" class="headerlink" title="第十一关"></a>第十一关</h2><p><img src="https://s2.ax1x.com/2020/02/16/3pQh3F.png" alt="image"></p>
+<p>script –&gt; xscript     script过滤成xscript</p>
+<p>on[a-z] –&gt; onxxx    on事件过滤成onxxx</p>
+<p>style –&gt; stxxx          style属性过滤成stxxx</p>
+<p>但是没有过滤”&lt;&gt;这样的话就可以先闭合”&gt;<script>alert()</script>。但是这里过滤了script怎么办呢？</p>
+<p>这个时候就可以想着对script就行编码就行了</p>
+<p>那么该用什么编码呢？无非就是html实体编码，jsunicode，js16进制或者八进制，url编码。我们都试试。</p>
+<p><img src="https://s2.ax1x.com/2020/02/16/3pJip6.png" alt="image"></p>
+<p>html实体编码没有成功被解析</p>
+<p>js16进制编码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;s\\x63ript&gt;alert(document.domain)&lt;&#x2F;s\\x63ript&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.ax1x.com/2020/02/16/3pJBcT.png" alt="image"></p>
+<p>也是没有被解析</p>
+<p>unicode：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;s\\u0063ript&gt;alert(document.domain)&lt;&#x2F;s\\u0063ript&gt;</span><br></pre></td></tr></table></figure>
+
+<p>也没有解析，url编码就不说了，也肯定是不会被解析的</p>
+<p>那么这种对标签编码的方法是行不通的了。于是我们换个方法。既然script标签不行，我们还有javascript协议。我们用&lt;a&gt;标签去xss。</p>
+<p>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;a href&#x3D;&quot;javascript:alert(document.domain)&quot;&gt;Da13&lt;&#x2F;a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>但是还是得想办法绕过对script的过滤</p>
+<p>按照之前的方法，我们先对某个字符进行html实体编码：<br>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;a href&#x3D;&quot;javas&amp;#x63;ript:alert(document.domain)&quot;&gt;Da13&lt;&#x2F;a&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2020/02/16/3pNsu8.png" alt="image"></p>
+<p>触发了。那我们缓缓js编码看看呢？</p>
+<p><img src="https://s2.ax1x.com/2020/02/16/3pUNrT.png" alt="image"></p>
+<p><img src="https://s2.ax1x.com/2020/02/16/3pUwa4.png" alt="image"></p>
+<p>都没有成功。所以这里可以看出：</p>
+<p><strong>不能对标签编码，对javascript编码的时候首先是html解析起将实体编码识别，再是后面的url解析起识别a标签中的url编码，等到一切准备就绪。js解析开始识别最后的编码并触发弹窗</strong></p>
+<p>当然这题还有另一个解法：</p>
+<p>paayload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;a href&#x3D;&quot;javas&amp;#09;cript:alert(document.domain)&quot;&gt;Da13&lt;&#x2F;a&gt;</span><br><span class="line">&quot;&gt;&lt;a href&#x3D;&quot;javas&amp;NewLine;cript:alert(document.domain)&quot;&gt;Da13&lt;&#x2F;a&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2020/02/16/3pdUN4.png" alt="image"><br>至于为什么在<a href="http://www.2cto.com/article/201310/251830.html" target="_blank" rel="noopener">《XSS与字符编码的那些事儿》</a>里面已经说到了。我这里就再做个搬运工。</p>
+<p><img src="https://s2.ax1x.com/2020/02/16/3pdbVS.png" alt="image"></p>
+<h2 id="第十二关"><a href="#第十二关" class="headerlink" title="第十二关"></a>第十二关</h2><p><img src="https://s2.ax1x.com/2020/02/19/3EUgYV.png" alt="image"></p>
+<p>过滤\x00到\x20所有字符，&lt; &gt; ” (英文双引号) ‘（英文单引号）。但是`还没被过滤，于是可以用`加上onclick,onmouseover,onfocus均可。但是前提只有在IE中才能实现。</p>
+<p>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#96;&#96;onclick&#x3D;alert(document.domain);</span><br></pre></td></tr></table></figure>
+
+<h2 id="第十三关"><a href="#第十三关" class="headerlink" title="第十三关"></a>第十三关</h2><p><img src="https://s2.ax1x.com/2020/02/19/3EbA8P.png" alt="image"></p>
+<p>根据提示，需要控制style的属性，style跟JS连接的属性有expression，url。需要注意的是expression是IE浏览器早期版本中的CSS属性值，实验使用IE 浏览器。</p>
+<p>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">da13:expression(onmouseover&#x3D;function()&#123;alert(document.domain)&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="第十四关"><a href="#第十四关" class="headerlink" title="第十四关"></a>第十四关</h2><p>和十三关没什么太大的区别，就是加了对敏感词汇的黑名单过滤</p>
+<p>s/(url|script|eval|expression)/xxx/ig;</p>
+<p>这样也不难绕过直接在关键词中间加注释符就行了。</p>
+<h2 id="第十五关"><a href="#第十五关" class="headerlink" title="第十五关"></a>第十五关</h2><p><img src="https://s2.ax1x.com/2020/02/19/3EqyYn.png" alt="image"></p>
+<p>这里可以看到时document.write()函数把value写入。我们先试试一般的payload看看。</p>
+<p><img src="https://s2.ax1x.com/2020/02/19/3ELZ7Q.png" alt="image"></p>
+<p>可以看到这里对特殊符号进行了编码。导致我们输入的不能被触发</p>
+<p>那我们试试编码html实体编码。<br><img src="https://s2.ax1x.com/2020/02/19/3ELoDS.png" alt="image"></p>
+<p>这里对&amp;符号也编码了。</p>
+<p>试试js十六进制编码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\x3cscript\\x3ealert(document.domain);\\x3c&#x2F;script\\x3e</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.ax1x.com/2020/02/19/3EO82t.png" alt="image"></p>
+<p>这里可以看到成功了。就是因为document.write是js中的，所以按照js编码规则，这样的payload是可以被识别的。</p>
+<h2 id="第十六关"><a href="#第十六关" class="headerlink" title="第十六关"></a>第十六关</h2><p><img src="https://s2.ax1x.com/2020/02/14/1jdcQS.png" alt="image"></p>
+<p>这里可以看到依然是docment.write函数，但是做了过滤。”\x”这类符号被过滤了，也就是说js的16进制都不行了。但是还有unicode编码和8进制，以下贴出unicode编码的payload。</p>
+<p>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\u003cscript\\u003ealert(document.domain)\\u003c&#x2F;script\\u003e</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.ax1x.com/2020/02/14/1jwQOg.png" alt="image"></p>
+<h2 id="第十七关"><a href="#第十七关" class="headerlink" title="第十七关"></a>第十七关</h2><p><img src="https://s2.ax1x.com/2020/02/14/1jBWee.png" alt="image"></p>
+<p>这里提示多字节字符。这里如果regist成功，输入的数据就会显示在框里面，如果有违法字符就什么都不会显示。这里fuzz以下发现过滤了”&lt;&gt;符号。根据提示可以猜测是类似于宽字节注入。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/9113969-65f36ba69be39d2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/562/format/webp" alt="image"></p>
+<p>但是这里说是要老版本的IE才会成功。所以就直接贴出payload</p>
+<p>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p1&#x3D;1%A7&amp;p2&#x3D;+onmouseover%3Dalert%28document.domain%29%3B+%A7</span><br></pre></td></tr></table></figure>
+
+<h2 id="第十八关"><a href="#第十八关" class="headerlink" title="第十八关"></a>第十八关</h2><p><img src="https://s2.ax1x.com/2020/02/14/1jDxBD.png" alt="image"></p>
+<p>依然过滤了&lt;&gt;”</p>
+<p>这个源自于浏览器会把一些8位的字符直接解释成7位ascii(漏洞已经在IE8中修补了)浏览器会忽略掉一些8位字符的第一位，如BC和&lt;2进制的后7位相同，浏览器会把他当做BC，并不会过滤。<br>比如：“&lt;” 十六进制 “3C” ,对应二进制是 “0011 1100” 最高位置1 变为 1011 1100 — 也就是 BC。<br>可以理解为 3C + 80 = BC （十六进制下）</p>
+<p>所以</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;script&gt;alert(document.domain)&lt;&#x2F;scirpt&gt;</span><br></pre></td></tr></table></figure>
+<p>经过变换后就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%A2%BE%BCscript%BEalert(document.domain);%BC&#x2F;scirpt%BE</span><br></pre></td></tr></table></figure>
+
+<p>这题也是需要IE才能实现</p>
+<h2 id="第十九关"><a href="#第十九关" class="headerlink" title="第十九关"></a>第十九关</h2><p><img src="https://s2.ax1x.com/2020/02/19/3VzPz9.png" alt="image"></p>
+<p>根据提示,可以找到该漏洞的文章</p>
+<p><a href="https://blog.mindedsecurity.com/2010/09/twitter-domxss-wrong-fix-and-something.html" target="_blank" rel="noopener">https://blog.mindedsecurity.com/2010/09/twitter-domxss-wrong-fix-and-something.html</a><br>因为这个洞是2010年的了，比较久远了，而且要在IE8中才能触发。</p>
+<p>这里和twitter中的漏洞环境差不多。取#!后面的放入linkurl后面。但是在谷歌里面插入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!javascript&amp;#58;alert(document.domain)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.ax1x.com/2020/02/19/3ZpyPU.png" alt="image"></p>
+<p>本来在IE8中就可以弹窗但是这里看到谷歌会404，不过URL会变成javascript协议。</p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>经过这次的xss challengs算是复习了一下对xss编码和简单xss绕过的一些小技巧，下来还会去练习一些更难的，灵活性更强的。希望各位大佬们如果看到什么</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/20/xss%20game%E6%8C%91%E6%88%98%E7%AC%94%E8%AE%B0/" data-id="ck6tl19jt0001vztl9l92hiai" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xss/" rel="tag">xss</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/02/20/%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%BD%91%E7%AB%99Title%20/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          工具开发之获取网站Title
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/01/21/%E8%BF%87%E6%BB%A4in,or%E5%AD%97%E7%AC%A6%E7%9A%84sql%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">过滤in,or字符的sql注入学习</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag">渗透测试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/web/" style="font-size: 20px;">web</a> <a href="/tags/xss/" style="font-size: 10px;">xss</a> <a href="/tags/%E5%BC%80%E5%8F%91/" style="font-size: 10px;">开发</a> <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">渗透测试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/02/20/%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%BD%91%E7%AB%99Title%20/">工具开发之获取网站Title</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/20/xss%20game%E6%8C%91%E6%88%98%E7%AC%94%E8%AE%B0/">xss game挑战笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/21/%E8%BF%87%E6%BB%A4in,or%E5%AD%97%E7%AC%A6%E7%9A%84sql%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/">过滤in,or字符的sql注入学习</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/09/%E6%B5%85%E6%9E%90html%E8%A7%A3%E6%9E%90%E6%9C%BA%E5%88%B6/">对浏览器和html解析机制的理解</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/06/%E7%94%B1Roarctf%20Easy%20Calc%E5%BC%95%E8%B5%B7%E5%AF%B9http%E8%B5%B0%E7%A7%81%E5%92%8C%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BB%95%E8%BF%87waf%E7%9A%84%E6%80%9D%E8%80%83/">由Roarctf Easy Calc引起对http走私和分块传输绕过waf的思考</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Da13<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>工具开发之获取网站Title | Da13&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="文章先发于星盟公众号 前言在做渗透测试时，一般甲方都会直接扔上万个url，然后需要我们从中挖到漏洞。那么第一步就是从这些url中筛选出正常的网站，并且简单的筛选出哪些网站是可值得去挖掘的，哪些网站是可能存在的，但是页面显示404，403等，哪些网站是不存在的直接就可以放弃的。 项目介绍我这里用了1.txt作为测试目标，大概有一万多个ip。  构思本人最初做这个项目的时候，代码能力很薄弱（虽然现在也">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工具开发之获取网站Title">
+<meta property="og:url" content="http://yoursite.com/2020/02/20/%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%BD%91%E7%AB%99Title%20/index.html">
+<meta property="og:site_name" content="Da13&#39;s blog">
+<meta property="og:description" content="文章先发于星盟公众号 前言在做渗透测试时，一般甲方都会直接扔上万个url，然后需要我们从中挖到漏洞。那么第一步就是从这些url中筛选出正常的网站，并且简单的筛选出哪些网站是可值得去挖掘的，哪些网站是可能存在的，但是页面显示404，403等，哪些网站是不存在的直接就可以放弃的。 项目介绍我这里用了1.txt作为测试目标，大概有一万多个ip。  构思本人最初做这个项目的时候，代码能力很薄弱（虽然现在也">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3VrbwD.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3VDdv6.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3V29IO.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3V4K2D.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3V40MQ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3Vo1r4.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3VTyXF.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3VTXtI.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3V75Us.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3VLhQ0.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3VLXS1.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3VOFfA.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3VOJXV.png">
+<meta property="article:published_time" content="2020-02-19T16:23:01.073Z">
+<meta property="article:modified_time" content="2020-02-19T16:58:53.452Z">
+<meta property="article:author" content="Da13">
+<meta property="article:tag" content="渗透测试">
+<meta property="article:tag" content="开发">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.ax1x.com/2020/02/19/3VrbwD.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Da13&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Da13&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-工具开发之获取网站Title " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/20/%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%BD%91%E7%AB%99Title%20/" class="article-date">
+  <time datetime="2020-02-19T16:23:01.073Z" itemprop="datePublished">2020-02-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      工具开发之获取网站Title
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>文章先发于星盟公众号</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在做渗透测试时，一般甲方都会直接扔上万个url，然后需要我们从中挖到漏洞。那么第一步就是从这些url中筛选出正常的网站，并且简单的筛选出哪些网站是可值得去挖掘的，哪些网站是可能存在的，但是页面显示404，403等，哪些网站是不存在的直接就可以放弃的。</p>
+<h1 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h1><p>我这里用了1.txt作为测试目标，大概有一万多个ip。</p>
+<p><img src="https://s2.ax1x.com/2020/02/19/3VrbwD.png" alt="image"></p>
+<h2 id="构思"><a href="#构思" class="headerlink" title="构思"></a>构思</h2><p>本人最初做这个项目的时候，代码能力很薄弱（虽然现在也好不到哪去），只能思考到简单的for循环一个一个去尝试，request到如果是200，3xx就表示一个正常的网站，其他都是不存在的。但是后来师傅替我引导了一下，举了一个简单的例子。</p>
+<p>咋们去访问<a href="https://www.baidu.com，返回的状态码是200，那如果访问https://www.baidu.com/dfsfsfdfs呢？（域名后面的目录是随机的）我起初想的是应该是404了吧。可是实际上返回的并不是404。" target="_blank" rel="noopener">https://www.baidu.com，返回的状态码是200，那如果访问https://www.baidu.com/dfsfsfdfs呢？（域名后面的目录是随机的）我起初想的是应该是404了吧。可是实际上返回的并不是404。</a></p>
+<p><img src="https://s2.ax1x.com/2020/02/19/3VDdv6.png" alt="image"></p>
+<p>并且可以看到这里的url也并不是我们之前访问的url，而是进入了百度预先设定好的error.html，状态码变成了304。也就是说我们访问了一个不存在的页面，百度收到我们的请求，但是并不是直接返回404，而是先是经过解析判断了是否存在该目录或文件，若不存在就呈现这个error的页面给我们。但是实际上我们需要知道的是百度后端是已经处理了我们的请求了,然后去进行了判断返回了304和error页面给我们，难道我们就能片面的说百度因为返回了一个错误的页面或者非200的页面就说该网站不存在吗？这显然是不合情理的。</p>
+<p>所以我在大佬的引导下写了一个如何判断网站是否存在的简单的思路图。</p>
+<p><img src="https://s2.ax1x.com/2020/02/19/3V29IO.png" alt="image"></p>
+<p>当然在实际情况下并没有这么简单，在最后的结果还有很多细节需要校验，修正。</p>
+<p>然后思路大致方向有了后，就该想想代码效率问题了。对网站的请求和回应会经过http协议，这样就会出现一个等待时间。如果一个一个的顺序去请求，那得跑到何年何月。于是我就想着要么换成多线程或者异步协程。这两者的区别和优缺点在这里就不说了。当时我开始的时候用两个方法都写了一遍。发现异步协程在这种情况下确实比多线程快的多。</p>
+<h2 id="代码讲解"><a href="#代码讲解" class="headerlink" title="代码讲解"></a>代码讲解</h2><p><img src="https://s2.ax1x.com/2020/02/19/3V4K2D.png" alt="image"><br>在python3.8中是可以直接asyncio.run()来启动的，但是在低版本中就得创建loop。</p>
+<p><img src="https://s2.ax1x.com/2020/02/19/3V40MQ.png" alt="image"></p>
+<p>verdictUrl()函数是将1.txt中的url文件拿出来放进asyncio.Queue()的队列里面。然后用aiohttp.ClientSession作为requests中的seesion来访问url。然后开启100个并发，将session和队列都放进get_title中。await asyncio.wait(tasks)开启异步协程。（这里建议并发的数量在50到100中间，因为小于50会增加脚本时间，大于100可能会对结果有影响）至于为什么用aiohttp不用httpx是本人发现httpx对https协议的网站不是很友好，请求的时候不是很准确，会报ssl的错，也是因为本人太菜了，没有找到好的解决办法。</p>
+<p><img src="https://s2.ax1x.com/2020/02/19/3Vo1r4.png" alt="image"></p>
+<p>在get_title函数里面我对常出现的状态进行了分类处理，可以看到特别是随机目录访问的时候的状态码是404和200的时候会单独进入判断就是为了判断网站的准确性。</p>
+<p>至于这里为什么会有个driver，我解释一下。</p>
+<p><img src="https://s2.ax1x.com/2020/02/19/3VTyXF.png" alt="image"></p>
+<p>因为python的requests访问和浏览器直接访问是有一定区别的，况且在异步加载中可能会出现数据丢失的情况，也就是返回的代码和浏览器中的有差别。所以在某些地方我会用headless chrome去访问，获取title。</p>
+<p><img src="https://s2.ax1x.com/2020/02/19/3VTXtI.png" alt="image"><br><img src="https://s2.ax1x.com/2020/02/19/3V75Us.png" alt="image"></p>
+<p>在four0four和two00函数中也会对根目录请求的状态码进行讨论确保结论的准确高效。</p>
+<p>特别是在随机访问200，根目录访问200的情况下，我用了content_length和返回的源码长度去判断该网站是否是正常的，因为有些网站访问全是200的有可能是有自己设置的404页面，后端是有进行处理的，也有可能是这个网站什么都没有访问什么都是空。这些细节特别需要注意，因为会为后期的渗透省下一些时间。</p>
+<p>最后说一下对url和结果的保存使用了字典的形式，url是键，title是值。</p>
+<h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><p>最后将处理完的结果保存成四个文件A,B,C,D。A是存在的正常网站，B是可能存在的网站，C是极大可能不存在的网站，D不是一个网站</p>
+<p><img src="https://s2.ax1x.com/2020/02/19/3VLhQ0.png" alt="image"></p>
+<p><img src="https://s2.ax1x.com/2020/02/19/3VLXS1.png" alt="image"><br><img src="https://s2.ax1x.com/2020/02/19/3VOFfA.png" alt="image"></p>
+<p><img src="https://s2.ax1x.com/2020/02/19/3VOJXV.png" alt="image"></p>
+<p>花费时间大概在16分钟到21分钟之间。</p>
+<h1 id="有待改进之处"><a href="#有待改进之处" class="headerlink" title="有待改进之处"></a>有待改进之处</h1><p>1.脚本获取title时有些会获取不完整，会导致标题为空。</p>
+<p>2.异步还是容易会出现漏包的情况。以后会慢慢完善代码。</p>
+<h1 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h1><p>通过这次的工具编写，让我意识到了自己代码能力还是太弱，需要长时间锻炼。其实就是对网站一些细节的地方进行了深入的了解。</p>
+<p>最后：如果大佬们有更好的思路或者见解，欢迎来交流！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/20/%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%BD%91%E7%AB%99Title%20/" data-id="ck6tl19jw0003vztlh3f6083e" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag">渗透测试</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/02/20/xss%20game%E6%8C%91%E6%88%98%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">xss game挑战笔记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag">渗透测试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/web/" style="font-size: 20px;">web</a> <a href="/tags/xss/" style="font-size: 10px;">xss</a> <a href="/tags/%E5%BC%80%E5%8F%91/" style="font-size: 10px;">开发</a> <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">渗透测试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/02/20/%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%BD%91%E7%AB%99Title%20/">工具开发之获取网站Title</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/20/xss%20game%E6%8C%91%E6%88%98%E7%AC%94%E8%AE%B0/">xss game挑战笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/21/%E8%BF%87%E6%BB%A4in,or%E5%AD%97%E7%AC%A6%E7%9A%84sql%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/">过滤in,or字符的sql注入学习</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/09/%E6%B5%85%E6%9E%90html%E8%A7%A3%E6%9E%90%E6%9C%BA%E5%88%B6/">对浏览器和html解析机制的理解</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/06/%E7%94%B1Roarctf%20Easy%20Calc%E5%BC%95%E8%B5%B7%E5%AF%B9http%E8%B5%B0%E7%A7%81%E5%92%8C%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BB%95%E8%BF%87waf%E7%9A%84%E6%80%9D%E8%80%83/">由Roarctf Easy Calc引起对http走私和分块传输绕过waf的思考</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Da13<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
