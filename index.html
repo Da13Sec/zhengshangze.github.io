@@ -1,13 +1,87 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
+
+
 
   
-  <title>Da13&#39;s blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="低调做人，高调做事">
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Da13's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="低调做人，高调做事">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Da13&#39;s blog">
 <meta property="og:url" content="http://yoursite.com/index.html">
@@ -15,678 +89,1212 @@
 <meta property="og:description" content="低调做人，高调做事">
 <meta property="article:author" content="Da13">
 <meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/"/>
+
+
+
+
+
+  <title>Da13's blog</title>
   
-    <link rel="alternate" href="/atom.xml" title="Da13&#39;s blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+
+
+
 
 <meta name="generator" content="Hexo 4.2.0"></head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Da13&#39;s blog</a>
-      </h1>
-      
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Da13's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
         
-          <a class="main-nav-link" href="/">Home</a>
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
         
-      </nav>
-      <nav id="sub-nav">
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-工具开发之获取网站Title " class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/20/%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%BD%91%E7%AB%99Title%20/" class="article-date">
-  <time datetime="2020-02-19T16:23:01.073Z" itemprop="datePublished">2020-02-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/20/%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%BD%91%E7%AB%99Title%20/">工具开发之获取网站Title</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
       
-        <p>文章先发于星盟公众号</p>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在做渗透测试时，一般甲方都会直接扔上万个url，然后需要我们从中挖到漏洞。那么第一步就是从这些url中筛选出正常的网站，并且简单的筛选出哪些网站是可值得去挖掘的，哪些网站是可能存在的，但是页面显示404，403等，哪些网站是不存在的直接就可以放弃的。</p>
-<h1 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h1><p>我这里用了1.txt作为测试目标，大概有一万多个ip。</p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3VrbwD.png" alt="image"></p>
-<h2 id="构思"><a href="#构思" class="headerlink" title="构思"></a>构思</h2><p>本人最初做这个项目的时候，代码能力很薄弱（虽然现在也好不到哪去），只能思考到简单的for循环一个一个去尝试，request到如果是200，3xx就表示一个正常的网站，其他都是不存在的。但是后来师傅替我引导了一下，举了一个简单的例子。</p>
-<p>咋们去访问<a href="https://www.baidu.com，返回的状态码是200，那如果访问https://www.baidu.com/dfsfsfdfs呢？（域名后面的目录是随机的）我起初想的是应该是404了吧。可是实际上返回的并不是404。" target="_blank" rel="noopener">https://www.baidu.com，返回的状态码是200，那如果访问https://www.baidu.com/dfsfsfdfs呢？（域名后面的目录是随机的）我起初想的是应该是404了吧。可是实际上返回的并不是404。</a></p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3VDdv6.png" alt="image"></p>
-<p>并且可以看到这里的url也并不是我们之前访问的url，而是进入了百度预先设定好的error.html，状态码变成了304。也就是说我们访问了一个不存在的页面，百度收到我们的请求，但是并不是直接返回404，而是先是经过解析判断了是否存在该目录或文件，若不存在就呈现这个error的页面给我们。但是实际上我们需要知道的是百度后端是已经处理了我们的请求了,然后去进行了判断返回了304和error页面给我们，难道我们就能片面的说百度因为返回了一个错误的页面或者非200的页面就说该网站不存在吗？这显然是不合情理的。</p>
-<p>所以我在大佬的引导下写了一个如何判断网站是否存在的简单的思路图。</p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3V29IO.png" alt="image"></p>
-<p>当然在实际情况下并没有这么简单，在最后的结果还有很多细节需要校验，修正。</p>
-<p>然后思路大致方向有了后，就该想想代码效率问题了。对网站的请求和回应会经过http协议，这样就会出现一个等待时间。如果一个一个的顺序去请求，那得跑到何年何月。于是我就想着要么换成多线程或者异步协程。这两者的区别和优缺点在这里就不说了。当时我开始的时候用两个方法都写了一遍。发现异步协程在这种情况下确实比多线程快的多。</p>
-<h2 id="代码讲解"><a href="#代码讲解" class="headerlink" title="代码讲解"></a>代码讲解</h2><p><img src="https://s2.ax1x.com/2020/02/19/3V4K2D.png" alt="image"><br>在python3.8中是可以直接asyncio.run()来启动的，但是在低版本中就得创建loop。</p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3V40MQ.png" alt="image"></p>
-<p>verdictUrl()函数是将1.txt中的url文件拿出来放进asyncio.Queue()的队列里面。然后用aiohttp.ClientSession作为requests中的seesion来访问url。然后开启100个并发，将session和队列都放进get_title中。await asyncio.wait(tasks)开启异步协程。（这里建议并发的数量在50到100中间，因为小于50会增加脚本时间，大于100可能会对结果有影响）至于为什么用aiohttp不用httpx是本人发现httpx对https协议的网站不是很友好，请求的时候不是很准确，会报ssl的错，也是因为本人太菜了，没有找到好的解决办法。</p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3Vo1r4.png" alt="image"></p>
-<p>在get_title函数里面我对常出现的状态进行了分类处理，可以看到特别是随机目录访问的时候的状态码是404和200的时候会单独进入判断就是为了判断网站的准确性。</p>
-<p>至于这里为什么会有个driver，我解释一下。</p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3VTyXF.png" alt="image"></p>
-<p>因为python的requests访问和浏览器直接访问是有一定区别的，况且在异步加载中可能会出现数据丢失的情况，也就是返回的代码和浏览器中的有差别。所以在某些地方我会用headless chrome去访问，获取title。</p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3VTXtI.png" alt="image"><br><img src="https://s2.ax1x.com/2020/02/19/3V75Us.png" alt="image"></p>
-<p>在four0four和two00函数中也会对根目录请求的状态码进行讨论确保结论的准确高效。</p>
-<p>特别是在随机访问200，根目录访问200的情况下，我用了content_length和返回的源码长度去判断该网站是否是正常的，因为有些网站访问全是200的有可能是有自己设置的404页面，后端是有进行处理的，也有可能是这个网站什么都没有访问什么都是空。这些细节特别需要注意，因为会为后期的渗透省下一些时间。</p>
-<p>最后说一下对url和结果的保存使用了字典的形式，url是键，title是值。</p>
-<h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><p>最后将处理完的结果保存成四个文件A,B,C,D。A是存在的正常网站，B是可能存在的网站，C是极大可能不存在的网站，D不是一个网站</p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3VLhQ0.png" alt="image"></p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3VLXS1.png" alt="image"><br><img src="https://s2.ax1x.com/2020/02/19/3VOFfA.png" alt="image"></p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3VOJXV.png" alt="image"></p>
-<p>花费时间大概在16分钟到21分钟之间。</p>
-<h1 id="有待改进之处"><a href="#有待改进之处" class="headerlink" title="有待改进之处"></a>有待改进之处</h1><p>1.脚本获取title时有些会获取不完整，会导致标题为空。</p>
-<p>2.异步还是容易会出现漏包的情况。以后会慢慢完善代码。</p>
-<h1 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h1><p>通过这次的工具编写，让我意识到了自己代码能力还是太弱，需要长时间锻炼。其实就是对网站一些细节的地方进行了深入的了解。</p>
-<p>最后：如果大佬们有更好的思路或者见解，欢迎来交流！</p>
 
       
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/20/%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%BD%91%E7%AB%99Title%20/" data-id="ck6tl19jw0003vztlh3f6083e" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag">渗透测试</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-xss game挑战笔记" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/20/xss%20game%E6%8C%91%E6%88%98%E7%AC%94%E8%AE%B0/" class="article-date">
-  <time datetime="2020-02-19T16:04:14.251Z" itemprop="datePublished">2020-02-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/web/">web</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/20/xss%20game%E6%8C%91%E6%88%98%E7%AC%94%E8%AE%B0/">xss game挑战笔记</a>
-    </h1>
+    </ul>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>文章先发于星盟公众号</p>
-<h1 id="前话"><a href="#前话" class="headerlink" title="前话"></a>前话</h1><p>之前对xss接触比较少，只是会基础的alert操作，至于原理，为什么可以这么编码等问题一直都是模模糊糊的，所以这段时间恶补一下xss基础知识。大佬略过，如果文章内容有什么不对的地方还请大家斧正！</p>
-<p>在文章开始之前先放两个链接，都是可以加深对js,html编码理解的文章，个人觉得非常优秀。</p>
-<p>《XSS与字符编码的那些事儿》—-&gt;<a href="http://www.2cto.com/article/201310/251830.html" target="_blank" rel="noopener">http://www.2cto.com/article/201310/251830.html</a></p>
-<p>《深入理解浏览器解析机制和XSS向量编码》——&gt;<a href="http://bobao.360.cn/learning/detail/292.html" target="_blank" rel="noopener">http://bobao.360.cn/learning/detail/292.html</a></p>
-<p>如果有刚开始接触xss的像我这样的新手，应该会有和我一样的经历，就是对html编码，js编码分不清楚。什么时候该用html编码，什么时候用js编码呢？</p>
-<p>本人对这些进行了一个简单的概括：</p>
-<p><strong>最常见的html编码有</strong>：html实体编码。分为十进制和十六进制</p>
-<p>如把尖括号编码[ &lt; ]  十进制: &amp;#60;  html十六进制:&amp;#x3c;(这里的分号是可以省掉的)</p>
-<p><strong>最常见的js编码有</strong>:八进制,十六进制,jsunicode编码。</p>
-<p>如把尖括号编码[ &lt; ]  八进制:\74  十六进制:\x3c  unicode:\u003c</p>
-<p>js和html不是同一种语言，所以就分为html解码和js解码。html只能识别属于自己的编码，js也是一样。因此html解析起并不能识别十六进制或者八进制的js编码。当然js也不能识别html实体编码。所以一般在domxss中大多是不用html编码的。再说一句，浏览器在解析代码的时候是先html解码，然后url解码，最后再运行js解析。所以这里可能就会有一种情况绕过，就是实体编码和js编码一起合作。上面的这边文章有例子可以看看，<a href="http://www.2cto.com/article/201310/251830.html" target="_blank" rel="noopener">《XSS与字符编码的那些事儿》</a>说的已经很清楚了就不赘述了。</p>
-<p>剩下的就是url编码和base64解码，这两个大家都很熟悉就不多说了。</p>
-<p>接下来就记录一下菜鸡的我做xss challengs的思路和心得！</p>
-<p>tip:(因为本人是用比较常见的chrom浏览器去复现,所以关于需要其他浏览器才能实现的情况只做思路说明。)</p>
-<h1 id="Challengs"><a href="#Challengs" class="headerlink" title="Challengs"></a>Challengs</h1><h2 id="第一关"><a href="#第一关" class="headerlink" title="第一关"></a>第一关</h2><p>第一关很简单什么都不用编码直接输入payload就会弹窗<br><img src="http://www.atomsec.org/wp-content/uploads/2015/12/xc2.png" alt="image"></p>
-<h2 id="第二关"><a href="#第二关" class="headerlink" title="第二关"></a>第二关</h2><p><img src="https://s2.ax1x.com/2020/02/14/1j4McQ.png" alt="image"></p>
-<p>这里提示说要闭合上一个标签。所以也很简单，直接</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;script&gt;alert(document.domain)&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://s2.ax1x.com/2020/02/14/1j5l8O.png" alt="image"></p>
-<h2 id="第三关"><a href="#第三关" class="headerlink" title="第三关"></a>第三关</h2><p><img src="https://s2.ax1x.com/2020/02/14/1joa38.png" alt="image"></p>
-<p>这里很明显在box中进行xss。看似只有这几个选项实际上是post传参的，可以bp抓包修改。也可以在element里面改。</p>
-<p><img src="https://s2.ax1x.com/2020/02/14/1j79L4.png" alt="image"></p>
-<h2 id="第四关"><a href="#第四关" class="headerlink" title="第四关"></a>第四关</h2><p><img src="https://s2.ax1x.com/2020/02/14/1j7It1.png" alt="image"><br>这里通过提示可以知道有转义</p>
-<p>但是可以看到hiden这p3也会post上去,我们在post上面做文章<br><img src="https://s2.ax1x.com/2020/02/14/1jb3xf.png" alt="image"><br><img src="https://s2.ax1x.com/2020/02/14/1jbVKO.png" alt="image"></p>
-<h2 id="第五关"><a href="#第五关" class="headerlink" title="第五关"></a>第五关</h2><p><img src="https://s2.ax1x.com/2020/02/14/1jqEYn.png" alt="image"></p>
-<p>这里设置了长度。但是也不难，初学ctf的人应该都遇到过这个情况，改掉maxlength就行了。</p>
-<p><img src="https://s2.ax1x.com/2020/02/14/1jq6pt.png" alt="image"></p>
-<h2 id="第六关"><a href="#第六关" class="headerlink" title="第六关"></a>第六关</h2><p>输入”&gt;<script>alert(document.domain)</script>&lt;发现&lt;&gt;被过滤<br><img src="https://s2.ax1x.com/2020/02/14/1jqqXT.png" alt="image"><br>这里我们换个思路，既然闭合不了就顺着他的意思，给他加个属性。</p>
-<p>payload:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot; onclick&#x3D;alert(document.domain) id&#x3D;&quot;a</span><br></pre></td></tr></table></figure>
-<p><img src="https://s2.ax1x.com/2020/02/14/1jLYNj.png" alt="image"></p>
-<h2 id="第七关"><a href="#第七关" class="headerlink" title="第七关"></a>第七关</h2><p><img src="https://s2.ax1x.com/2020/02/15/1zpC01.png" alt="image"></p>
-<p>这里可以知道和上节有点相似。但是按照上节的payload试试呢？</p>
-<p><img src="https://s2.ax1x.com/2020/02/15/1zpjEt.png" alt="image"><br>这里我们可以看到依然可以弹窗。但是和上节不同的地方就是value。上节中value并没有值，而这里有了。说明什么？</p>
-<p>这里对”进行了过滤，所以这里的”能正确出现在框里面，当作value的值。上节中没有过滤”符号所以value值是空。</p>
-<h2 id="第八关"><a href="#第八关" class="headerlink" title="第八关"></a>第八关</h2><p><img src="https://s2.ax1x.com/2020/02/16/3SxZXd.png" alt="image"></p>
-<p>这里看到提示说用javascript协议。这里没有什么过滤直接xss</p>
-<p><img src="https://s2.ax1x.com/2020/02/16/3pVQN4.png" alt="image"></p>
-<h2 id="第九关"><a href="#第九关" class="headerlink" title="第九关"></a>第九关</h2><p><img src="https://s2.ax1x.com/2020/02/16/3pVqbT.png" alt="image"></p>
-<p>这里提示说要用utf-7的编码来绕过。并且目前只有IE7下才会成功。</p>
-<p>payload构造参考的Nixawk的博客<a href="http://blog.csdn.net/nixawk/article/details/28038509" target="_blank" rel="noopener">http://blog.csdn.net/nixawk/article/details/28038509</a></p>
-<p>payload:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p1&#x3D;a%2BACI++onmouseover%2BAD0AIg-javascript%3Aalert%28document.domain%29%2BACI++id%2BAD0AIg-x&amp;charset&#x3D;UTF-7</span><br></pre></td></tr></table></figure>
-<p>因为UTF-7编码需要结合utf-7bom，这部分不是很熟悉还需要学习一下。</p>
-<h2 id="第十关"><a href="#第十关" class="headerlink" title="第十关"></a>第十关</h2><p><img src="https://s2.ax1x.com/2020/02/16/3pKzGD.png" alt="image"></p>
-<p>这里我们可以看到对domain这个特殊字眼进行了过滤。</p>
-<p>当我输入domain的时候发现对这个特殊字符串进行了识别然后替换成了空字符串。这样又一个简单的绕过方法，就是在domain中间加入一个domain。这种类似的方法sql中出现过很多次了。</p>
-<p>paylaod:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;script&gt;alert(document.dodomainmain)&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.ax1x.com/2020/02/16/3pQGnA.png" alt="image"></p>
-<h2 id="第十一关"><a href="#第十一关" class="headerlink" title="第十一关"></a>第十一关</h2><p><img src="https://s2.ax1x.com/2020/02/16/3pQh3F.png" alt="image"></p>
-<p>script –&gt; xscript     script过滤成xscript</p>
-<p>on[a-z] –&gt; onxxx    on事件过滤成onxxx</p>
-<p>style –&gt; stxxx          style属性过滤成stxxx</p>
-<p>但是没有过滤”&lt;&gt;这样的话就可以先闭合”&gt;<script>alert()</script>。但是这里过滤了script怎么办呢？</p>
-<p>这个时候就可以想着对script就行编码就行了</p>
-<p>那么该用什么编码呢？无非就是html实体编码，jsunicode，js16进制或者八进制，url编码。我们都试试。</p>
-<p><img src="https://s2.ax1x.com/2020/02/16/3pJip6.png" alt="image"></p>
-<p>html实体编码没有成功被解析</p>
-<p>js16进制编码:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;s\\x63ript&gt;alert(document.domain)&lt;&#x2F;s\\x63ript&gt;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.ax1x.com/2020/02/16/3pJBcT.png" alt="image"></p>
-<p>也是没有被解析</p>
-<p>unicode：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;s\\u0063ript&gt;alert(document.domain)&lt;&#x2F;s\\u0063ript&gt;</span><br></pre></td></tr></table></figure>
-
-<p>也没有解析，url编码就不说了，也肯定是不会被解析的</p>
-<p>那么这种对标签编码的方法是行不通的了。于是我们换个方法。既然script标签不行，我们还有javascript协议。我们用&lt;a&gt;标签去xss。</p>
-<p>payload:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;a href&#x3D;&quot;javascript:alert(document.domain)&quot;&gt;Da13&lt;&#x2F;a&gt;</span><br></pre></td></tr></table></figure>
-
-<p>但是还是得想办法绕过对script的过滤</p>
-<p>按照之前的方法，我们先对某个字符进行html实体编码：<br>payload:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;a href&#x3D;&quot;javas&amp;#x63;ript:alert(document.domain)&quot;&gt;Da13&lt;&#x2F;a&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://s2.ax1x.com/2020/02/16/3pNsu8.png" alt="image"></p>
-<p>触发了。那我们缓缓js编码看看呢？</p>
-<p><img src="https://s2.ax1x.com/2020/02/16/3pUNrT.png" alt="image"></p>
-<p><img src="https://s2.ax1x.com/2020/02/16/3pUwa4.png" alt="image"></p>
-<p>都没有成功。所以这里可以看出：</p>
-<p><strong>不能对标签编码，对javascript编码的时候首先是html解析起将实体编码识别，再是后面的url解析起识别a标签中的url编码，等到一切准备就绪。js解析开始识别最后的编码并触发弹窗</strong></p>
-<p>当然这题还有另一个解法：</p>
-<p>paayload:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;a href&#x3D;&quot;javas&amp;#09;cript:alert(document.domain)&quot;&gt;Da13&lt;&#x2F;a&gt;</span><br><span class="line">&quot;&gt;&lt;a href&#x3D;&quot;javas&amp;NewLine;cript:alert(document.domain)&quot;&gt;Da13&lt;&#x2F;a&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://s2.ax1x.com/2020/02/16/3pdUN4.png" alt="image"><br>至于为什么在<a href="http://www.2cto.com/article/201310/251830.html" target="_blank" rel="noopener">《XSS与字符编码的那些事儿》</a>里面已经说到了。我这里就再做个搬运工。</p>
-<p><img src="https://s2.ax1x.com/2020/02/16/3pdbVS.png" alt="image"></p>
-<h2 id="第十二关"><a href="#第十二关" class="headerlink" title="第十二关"></a>第十二关</h2><p><img src="https://s2.ax1x.com/2020/02/19/3EUgYV.png" alt="image"></p>
-<p>过滤\x00到\x20所有字符，&lt; &gt; ” (英文双引号) ‘（英文单引号）。但是`还没被过滤，于是可以用`加上onclick,onmouseover,onfocus均可。但是前提只有在IE中才能实现。</p>
-<p>payload:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#96;&#96;onclick&#x3D;alert(document.domain);</span><br></pre></td></tr></table></figure>
-
-<h2 id="第十三关"><a href="#第十三关" class="headerlink" title="第十三关"></a>第十三关</h2><p><img src="https://s2.ax1x.com/2020/02/19/3EbA8P.png" alt="image"></p>
-<p>根据提示，需要控制style的属性，style跟JS连接的属性有expression，url。需要注意的是expression是IE浏览器早期版本中的CSS属性值，实验使用IE 浏览器。</p>
-<p>payload:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">da13:expression(onmouseover&#x3D;function()&#123;alert(document.domain)&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="第十四关"><a href="#第十四关" class="headerlink" title="第十四关"></a>第十四关</h2><p>和十三关没什么太大的区别，就是加了对敏感词汇的黑名单过滤</p>
-<p>s/(url|script|eval|expression)/xxx/ig;</p>
-<p>这样也不难绕过直接在关键词中间加注释符就行了。</p>
-<h2 id="第十五关"><a href="#第十五关" class="headerlink" title="第十五关"></a>第十五关</h2><p><img src="https://s2.ax1x.com/2020/02/19/3EqyYn.png" alt="image"></p>
-<p>这里可以看到时document.write()函数把value写入。我们先试试一般的payload看看。</p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3ELZ7Q.png" alt="image"></p>
-<p>可以看到这里对特殊符号进行了编码。导致我们输入的不能被触发</p>
-<p>那我们试试编码html实体编码。<br><img src="https://s2.ax1x.com/2020/02/19/3ELoDS.png" alt="image"></p>
-<p>这里对&amp;符号也编码了。</p>
-<p>试试js十六进制编码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\x3cscript\\x3ealert(document.domain);\\x3c&#x2F;script\\x3e</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.ax1x.com/2020/02/19/3EO82t.png" alt="image"></p>
-<p>这里可以看到成功了。就是因为document.write是js中的，所以按照js编码规则，这样的payload是可以被识别的。</p>
-<h2 id="第十六关"><a href="#第十六关" class="headerlink" title="第十六关"></a>第十六关</h2><p><img src="https://s2.ax1x.com/2020/02/14/1jdcQS.png" alt="image"></p>
-<p>这里可以看到依然是docment.write函数，但是做了过滤。”\x”这类符号被过滤了，也就是说js的16进制都不行了。但是还有unicode编码和8进制，以下贴出unicode编码的payload。</p>
-<p>payload:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\u003cscript\\u003ealert(document.domain)\\u003c&#x2F;script\\u003e</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.ax1x.com/2020/02/14/1jwQOg.png" alt="image"></p>
-<h2 id="第十七关"><a href="#第十七关" class="headerlink" title="第十七关"></a>第十七关</h2><p><img src="https://s2.ax1x.com/2020/02/14/1jBWee.png" alt="image"></p>
-<p>这里提示多字节字符。这里如果regist成功，输入的数据就会显示在框里面，如果有违法字符就什么都不会显示。这里fuzz以下发现过滤了”&lt;&gt;符号。根据提示可以猜测是类似于宽字节注入。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/9113969-65f36ba69be39d2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/562/format/webp" alt="image"></p>
-<p>但是这里说是要老版本的IE才会成功。所以就直接贴出payload</p>
-<p>payload:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p1&#x3D;1%A7&amp;p2&#x3D;+onmouseover%3Dalert%28document.domain%29%3B+%A7</span><br></pre></td></tr></table></figure>
-
-<h2 id="第十八关"><a href="#第十八关" class="headerlink" title="第十八关"></a>第十八关</h2><p><img src="https://s2.ax1x.com/2020/02/14/1jDxBD.png" alt="image"></p>
-<p>依然过滤了&lt;&gt;”</p>
-<p>这个源自于浏览器会把一些8位的字符直接解释成7位ascii(漏洞已经在IE8中修补了)浏览器会忽略掉一些8位字符的第一位，如BC和&lt;2进制的后7位相同，浏览器会把他当做BC，并不会过滤。<br>比如：“&lt;” 十六进制 “3C” ,对应二进制是 “0011 1100” 最高位置1 变为 1011 1100 — 也就是 BC。<br>可以理解为 3C + 80 = BC （十六进制下）</p>
-<p>所以</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;script&gt;alert(document.domain)&lt;&#x2F;scirpt&gt;</span><br></pre></td></tr></table></figure>
-<p>经过变换后就是</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%A2%BE%BCscript%BEalert(document.domain);%BC&#x2F;scirpt%BE</span><br></pre></td></tr></table></figure>
-
-<p>这题也是需要IE才能实现</p>
-<h2 id="第十九关"><a href="#第十九关" class="headerlink" title="第十九关"></a>第十九关</h2><p><img src="https://s2.ax1x.com/2020/02/19/3VzPz9.png" alt="image"></p>
-<p>根据提示,可以找到该漏洞的文章</p>
-<p><a href="https://blog.mindedsecurity.com/2010/09/twitter-domxss-wrong-fix-and-something.html" target="_blank" rel="noopener">https://blog.mindedsecurity.com/2010/09/twitter-domxss-wrong-fix-and-something.html</a><br>因为这个洞是2010年的了，比较久远了，而且要在IE8中才能触发。</p>
-<p>这里和twitter中的漏洞环境差不多。取#!后面的放入linkurl后面。但是在谷歌里面插入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!javascript&amp;#58;alert(document.domain)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.ax1x.com/2020/02/19/3ZpyPU.png" alt="image"></p>
-<p>本来在IE8中就可以弹窗但是这里看到谷歌会404，不过URL会变成javascript协议。</p>
-<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>经过这次的xss challengs算是复习了一下对xss编码和简单xss绕过的一些小技巧，下来还会去练习一些更难的，灵活性更强的。希望各位大佬们如果看到什么</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/20/xss%20game%E6%8C%91%E6%88%98%E7%AC%94%E8%AE%B0/" data-id="ck6tl19jt0001vztl9l92hiai" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xss/" rel="tag">xss</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-过滤in,or字符的sql注入学习" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/21/%E8%BF%87%E6%BB%A4in,or%E5%AD%97%E7%AC%A6%E7%9A%84sql%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/" class="article-date">
-  <time datetime="2020-01-21T14:42:41.464Z" itemprop="datePublished">2020-01-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/21/%E8%BF%87%E6%BB%A4in,or%E5%AD%97%E7%AC%A6%E7%9A%84sql%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/">过滤in,or字符的sql注入学习</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在sql注入中，有时候会遇见一些过滤，将in或者or之类的匹配出来，这样传统的通过information_schema是得不出来列名的。</p>
-<p>这里引入一个sys的一个表</p>
-<p><img src="https://s2.ax1x.com/2020/01/21/1kCTat.png" alt="image"></p>
-<p>可以看到这里有很多表名。</p>
-<p><img src="https://s2.ax1x.com/2020/01/21/1kCjMQ.png" alt="image"></p>
-<p>这里有很多$符号的表名，这些表单里面就存在很多信息。</p>
-<p><img src="https://s2.ax1x.com/2020/01/21/1kPQJK.png" alt="image"></p>
-<p><img src="https://s2.ax1x.com/2020/01/21/1kPyLj.png" alt="image"></p>
-<p>这里就出现了我创建的一个表。</p>
-<p>这里还可以用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select table_name from sys.x$schema_table_statistics where table_schema&#x3D;database();</span><br></pre></td></tr></table></figure>
-
-<p>来获得表名。</p>
-<p><img src="https://s2.ax1x.com/2020/01/21/1ky39J.png" alt="image"></p>
-<p>接下来”sys.x$statement_analysis”这个表记录了一些操作日志</p>
-<p><img src="https://s2.ax1x.com/2020/01/21/1kiEff.png" alt="image"></p>
-<p>在sql注入中，或者在ctf中，可以通过这个看看别人是怎么操作的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT query FROM sys.x$statement_analysis</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.ax1x.com/2020/01/21/1kFAb9.png" alt="image"></p>
-<p>当我们不知道列名那该怎么办呢？</p>
-<p>这里有这么一个trick</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select (select 1,&#39;da13&#39;)&#x3D;(select * from for_test);</span><br></pre></td></tr></table></figure>
-
-<p>这里对大小写不敏感，如果等式左右那边的列数相等，并且结果想同就会返回1.当然这里的等号也可以换成 &lt;,&gt;符号</p>
-<p><img src="https://s2.ax1x.com/2020/01/21/1kNlQS.png" alt="image"></p>
-<p>但是当我们要数据的时候得大小写分明，那么怎么办呢?</p>
-<p>原本是binary函数即可，但是里面有”in”所以得换个方法。</p>
-<p>在mysql中json是binary类，利用cast方法可以转换过来</p>
-<p><img src="https://s2.ax1x.com/2020/01/21/1kBCRI.png" alt="image"></p>
-<p><img src="https://s2.ax1x.com/2020/01/21/1krDaD.png" alt="image"></p>
-<p>这里的concat函数因为后面的0是二进制的类，所以整个拼接后就是二进制的，所以就能进行大小写辨别了。</p>
-<p>TetCTF中一个ctf题目就是用这个方法做的，这里就只拿payload说说。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((SELECT 1,CONCAT(&#123;flag&#125;, CAST(&quot;0&quot; as JSON))) &lt;&#x3D; (SELECT * FROM &#96;Th1z_Fack1n_Fl4444g_Tabl3&#96;))+1</span><br></pre></td></tr></table></figure>
-
-<p>这里我们对flag进行一个一个尝试，后面接上0，让整个爆破的字符串可以和后面的（真实的flag）进行大小写比较。</p>
-<p>以上就是个人所做的一个小总结，有不足的地方还望各位大佬斧正！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/01/21/%E8%BF%87%E6%BB%A4in,or%E5%AD%97%E7%AC%A6%E7%9A%84sql%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/" data-id="ck6tl19k00007vztl7hjw6tdm" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/" rel="tag">sql</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-浅析html解析机制" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/11/09/%E6%B5%85%E6%9E%90html%E8%A7%A3%E6%9E%90%E6%9C%BA%E5%88%B6/" class="article-date">
-  <time datetime="2019-11-09T06:05:57.929Z" itemprop="datePublished">2019-11-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/09/%E6%B5%85%E6%9E%90html%E8%A7%A3%E6%9E%90%E6%9C%BA%E5%88%B6/">对浏览器和html解析机制的理解</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>之前在看xss的时候老是不知道为什么不同编码，有的会被解析有的不会被解析，所以就想静下来，找个时间把这些基础点理清楚了。毕竟基础是很重要！！！</p>
-<p>中途我参考过<br><a href="http://bobao.360.cn/learning/detail/292.html" target="_blank" rel="noopener">http://bobao.360.cn/learning/detail/292.html</a><br>讲的很详细了。下面是我自己的总结。</p>
-<h1 id="html实体"><a href="#html实体" class="headerlink" title="html实体"></a>html实体</h1><p>我是由浅入深的方式来思考的，平时我遇到的比较频繁的就是实体编码，也是最基础的。可以看看下面的这个例子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;&amp;#60;img src&#x3D;x onerror&#x3D;alert(4)&amp;#62;&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
-
-<p>这里对img标签的&lt;&gt;符号进行了”字符值引用”。什么是字符值引用呢？这里简单做个介绍：</p>
-<p>字符实体(character entities)：</p>
-<p>字符实体是一个转义序列，它定义了一般无法在文本内容中输入的单个字符或符号。一个字符实体以一个&amp;符号开始，后面跟着一个预定义的实体的名称，或是一个#符号以及字符的十进制数字。</p>
-<p>HTML字符实体(HTML character entities)：</p>
-<p>因为有些字符浏览器会把他们误以为功能符号，所以对这类字符专门“预留”了。也就是说如果希望这些字符被显示在页面上那么就需要在HTML中使用对应的字符实体。比如：&lt;小于号的实体名称是&amp;lt;实体编号为&amp;#60;</p>
-<p>但是有些字符是没有实体名称但是有实体编号的。这里字符值引用就是引用实体编号，对应的字符实体引用为‘&amp;lt;’。字符实体引用也被叫做“实体引用”或“实体”。</p>
-<p>那么上面这个代码能正常执行吗？我们放图：</p>
-<p><img src="https://s2.ax1x.com/2019/11/09/MmSysU.png" alt="image"></p>
-<p>这里可以看到并没有执行成功。那么为什么html不会去执行这个编码呢？</p>
-<p>html解析过程中，当遇到第一个’&lt;’或者’&gt;’这类符号后会进入”标签开始状态”,然后转变为”标签名状态”,接着是”前属性状态”，最后到”数据状态”。当解析器解析到”数据状态”时，会继续解析，直到最后结束符号出现。</p>
-<p>要说明的一点是，只要当html遇到标签开始状态时，才会去解析下面的内容。这里的标签开始状态是&lt;div&gt;,所以遇到后面的&amp;#符号只是会对其解码但是并不会回到”标签名开始”阶段,所以并不会创立新标签。</p>
-<p>那是不是这里如果把&lt;div&gt;标签去掉后，让实体编号作为开始，是不是解码后就到了”标签名开始”阶段呢？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;#60;img src&#x3D;x onerror&#x3D;alert(4)&amp;#62;</span><br></pre></td></tr></table></figure>
-<p><img src="https://s2.ax1x.com/2019/11/08/Me92Yn.png" alt="image"></p>
-<p>看来还是没法，我认为是当html解析器将实体解码后，不会返回去判断该字符是否是&lt;&gt;这类”标签名开始”符，所以就依然不能执行成功。</p>
-<p>那么如果将特殊字符进行实体编码后就不能绕过让他执行了吗？这个后面讲到javascript解析的时候会说到。</p>
-<h1 id="URL解析"><a href="#URL解析" class="headerlink" title="URL解析"></a>URL解析</h1><p>开始之前先说明一个点：浏览器在解析HTML文档时无论按照什么顺序，主要有三个过程：HTML解析、JS解析和URL解析，每个解析器负责HTML文档中各自对应部分的解析工作。之前说到的实体编码是html解析范畴。</p>
-<p>这里我先贴出一个代码，看看会不会执行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href&#x3D;&quot;%6a%61%76%61%73%63%72%69%70%74:%61%6c%65%72%74%28%31%29&quot;&gt;1&lt;&#x2F;a&gt;&#x2F;&#x2F;javascript:alert(4)</span><br></pre></td></tr></table></figure>
-
-<p>这里的href是经过url编码的，那么会不会被url解析器解析成javascript:alert(4)呢？</p>
-<p><img src="https://s2.ax1x.com/2019/11/09/MeFyj0.png" alt="image"></p>
-<p>这里可以看到连接并没有解析成javascript:alert(4),仍然是原来的字符串。是不是可能会想URL解码之后Javascript解析器完成解码操作，脚本应该会正常执行啊，这里就有一个URL解析过程中的一个细节了，<strong>不能对协议类型进行任何的编码操作</strong>，否则URL解析器会认为它无类型，所以不会对它进行url解码。</p>
-<p>那么如果我们不把协议编码呢？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href&#x3D;&quot;javascript%3aalert(3)&quot;&gt;3&lt;&#x2F;a&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://s2.ax1x.com/2019/11/09/Mekm2n.png" alt="image"></p>
-<p>依然没有url解析。可以认为该原则对协议后面的“：”（冒号）同样适用。</p>
-<p>那如果用下面的例子呢？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href&#x3D;&quot;&amp;#x6a;&amp;#x61;&amp;#x76;&amp;#x61;&amp;#x73;&amp;#x63;&amp;#x72;&amp;#x69;&amp;#x70;&amp;#x74;:%61%6c%65%72%74%28%32%29&quot;&gt;</span><br></pre></td></tr></table></figure>
-
-<p>这里我先进行实体编码了javascript，然后用url编码了alert(2)。</p>
-<p><img src="https://s2.ax1x.com/2019/11/09/Me2VuF.png" alt="image"></p>
-<p>这里对javascript编码了为什么还能执行呢？</p>
-<p>因为”javascript”是做的HTML实体编码，HTML解析器工作时，href里的HTML实体会被解码，”javascript”协议在第一步被HTML解码了，URL解析器开始识别，在这时，“javascript”协议已经被解码，后面的字符串能够被URL解析器正确识别。然后URL解析器继续解析链接剩下的部分。最后由js解析器解析进行弹窗。</p>
-<p>那这里为什么html解析器会对href里面进行解码呢？</p>
-<p>这里有三种情况html解析器可以容纳字符实体，“数据状态中的字符引用”，“RCDATA状态中的字符引用”和“属性值状态中的字符引用”。在这些状态中HTML字符实体将会从“&amp;#…”形式解码，对应的解码字符会被放入数据缓冲区中。而这里当html解析器碰到&lt;符号后会进入标签开始状态，然后就会遇到herf中的“属性值状态中的字符引用”的情况，对该字符串进行解析。</p>
-<p>其次，URL编码过程使用UTF-8编码类型来编码每一个字符。如果你尝试着将URL链接做了其他编码类型的编码，URL解析器就可能不会正确识别。</p>
-<h1 id="JavaScript-解析"><a href="#JavaScript-解析" class="headerlink" title="JavaScript 解析"></a>JavaScript 解析</h1><p>这里得先说一下，JavaScript语言是一门内容无关语言。所以与html解析会有一些不一样。</p>
-<p>先看看这个代码可以执行吗？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;&amp;#97;&amp;#108;&amp;#101;&amp;#114;&amp;#116&amp;#40;&amp;#57;&amp;#41;&amp;#59&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.ax1x.com/2019/11/09/MeTJDx.png" alt="image"></p>
-<p>可以看到这里并不会执行，不应该是html解析成alert(9)后然后js执行吗？</p>
-<p>这就是js和html解析不一样的地方，所有的“script”块都属于“原始文本”元素。“script”块有个有趣的属性：在块中的字符引用并不会被解析和解码。所以如果攻击者尝试着将输入数据编码成字符实体并将其放在script块中，它将不会被执行。</p>
-<p>那么不用实体编码用unicode呢？</p>
-<p><strong>Unicode转义序列只有在标识符名称里不被当作字符串，也只有在标识符名称里的编码字符能够被正常的解析。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;\u0061\u006c\u0065\u0072\u0074\u0028\u0031\u0031\u0029&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://s2.ax1x.com/2019/11/09/MebRIK.png" alt="image"></p>
-<p>这里并没有执行是有两个原因</p>
-<ol>
-<li>里面对控制字符（）进行了编码。但是当js解析控制字符时，例如单引号、双引号、圆括号等等，它们将不会被解释成控制字符，而仅仅被解码并解析为标识符名称或者字符串常量。</li>
-<li>这里就算被js解析成功也是alert(1)并不是标识符。</li>
-</ol>
-<p>所以这里并不会被解析成功。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;\u0061\u006c\u0065\u0072\u0074(\u0031\u0032)&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://s2.ax1x.com/2019/11/09/MeOYqA.png" alt="image"></p>
-<p>这里可以看到虽然（）符号没有编码，但是就是因为解码后是非标识符所以也不会被弹窗。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(&#39;13\u0027)&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://s2.ax1x.com/2019/11/09/MeXPeA.png" alt="image"></p>
-<p>这里就是因为对控制符进行编码，但是js解析只会把他当做字符常量来处理。所以也不会执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(&#39;14\u000a&#39;)&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://s2.ax1x.com/2019/11/09/MeXmQg.png" alt="image"></p>
-<p>这里的\u000a是换行符，但是这里可以看到并没有执行换行的功能，进行了弹窗。</p>
-<p>写到这里可能对html基本的html解析，url解析，javascript解析有了一定的初步了解。但是xss攻击千变万化，以上只是作者的个人理解，只有通过不断实战，刷题才能更加熟练，理解的更加深刻。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/09/%E6%B5%85%E6%9E%90html%E8%A7%A3%E6%9E%90%E6%9C%BA%E5%88%B6/" data-id="ck6tl19k10008vztl2js760as" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-由Roarctf Easy Calc引起对http走私和分块传输绕过waf的思考" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/11/06/%E7%94%B1Roarctf%20Easy%20Calc%E5%BC%95%E8%B5%B7%E5%AF%B9http%E8%B5%B0%E7%A7%81%E5%92%8C%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BB%95%E8%BF%87waf%E7%9A%84%E6%80%9D%E8%80%83/" class="article-date">
-  <time datetime="2019-11-05T16:29:00.455Z" itemprop="datePublished">2019-11-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/06/%E7%94%B1Roarctf%20Easy%20Calc%E5%BC%95%E8%B5%B7%E5%AF%B9http%E8%B5%B0%E7%A7%81%E5%92%8C%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BB%95%E8%BF%87waf%E7%9A%84%E6%80%9D%E8%80%83/">由Roarctf Easy Calc引起对http走私和分块传输绕过waf的思考</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>之前在做roarctf第一个web时候读到过关于php解析漏洞的文章。</p>
-<p><a href="https://www.freebuf.com/articles/web/213359.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/213359.html</a></p>
-<p>但是用的是在num参数前面构造一个%20来绕过waf。</p>
-<p><img src="https://s2.ax1x.com/2019/10/31/KTnENt.png" alt="image"></p>
-<p>但是后来看群里有个师傅提起了http走私协议。于是就去学习了一下。</p>
-<h1 id="HTTP走私原理："><a href="#HTTP走私原理：" class="headerlink" title="HTTP走私原理："></a>HTTP走私原理：</h1><p>HTTP请求走私漏洞的原因是由于HTTP规范提供了两种不同方式来指定请求的结束位置，它们是Content-Length标头和Transfer-Encoding标头，Content-Length标头简单明了，它以字节为单位指定消息内容体的长度。</p>
-<p>Transfer-Encoding标头用于指定消息体使用分块编码（Chunked Encode），也就是说消息报文由一个或多个数据块组成，每个数据块大小以字节为单位（十六进制表示） 衡量，后跟换行符，然后是块内容，最重要的是：整个消息体以大小为0的块结束，也就是说解析遇到0数据块就结束。</p>
-<p>相当于我发送请求，包含Content-Length，前端服务器解析后没有问题发送给后端服务器，但是我在请求时后面还包含了Transfer-Encoding，这样后端服务器进行解析便可执行我写在下面的一些命令，这样便可以绕过前端的waf。</p>
-<h1 id="走私的四种方法："><a href="#走私的四种方法：" class="headerlink" title="走私的四种方法："></a>走私的四种方法：</h1><h2 id="CL不为0时"><a href="#CL不为0时" class="headerlink" title="CL不为0时"></a>CL不为0时</h2><p>这种情况一般发生在get请求下，当前端允许content-length，后端不允许时，此时后端服务器就不会解析content-length，这样就可能绕过waf。</p>
-<h2 id="CL-CL型"><a href="#CL-CL型" class="headerlink" title="CL-CL型"></a>CL-CL型</h2><p>这种利用的前提条件是服务器不会返回400错误。但是前端服务器按照第一个Content-Length的值对请求进行处理，而后端源站服务器按照第二个Content-Length的值进行处理,这样便有可能引发请求走私。比如出现下面这种情况时：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Content-Length:68</span><br><span class="line">Content-Length:5 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">num&#x3D;1GET &#x2F;calc.php?num&#x3D;1 HTTP&#x2F;1.1</span><br></pre></td></tr></table></figure>
-
-<p>前端先解析第一个cl为68，就会把下面的“num=1GET /calc.php?num=1 HTTP/1.1”都当做请求的内容。但是后端会解析第二个cl，也就是说后端只解析“num=1”<br>后面的请求体就作为下次请求的请求头（前提是Connection: keep-alive）。这样就会引发走私。</p>
-<h2 id="CL-TE"><a href="#CL-TE" class="headerlink" title="CL-TE"></a>CL-TE</h2><p>就是当收到存在两个请求头的请求包时，前端代理服务器只处理Content-Length这一请求头，而后端服务器会忽略掉Content-Length，处理Transfer-Encoding这一请求头。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Content-Length:123</span><br><span class="line">Transfer-Encoding: chunked</span><br></pre></td></tr></table></figure>
-
-<p>这里的chunked对请求内容进行分块编码，并且直到有\r\n的时候才结束。</p>
-<h2 id="TE-CL"><a href="#TE-CL" class="headerlink" title="TE-CL"></a>TE-CL</h2><p>所谓TE-CL，就是当收到存在两个请求头的请求包时，前端代理服务器处理Transfer-Encoding这一请求头，而后端服务器处理Content-Length请求头。</p>
-<h1 id="在calc的题目中："><a href="#在calc的题目中：" class="headerlink" title="在calc的题目中："></a>在calc的题目中：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">if(!isset($_GET[&#39;num&#39;]))&#123;</span><br><span class="line">    show_source(__FILE__);</span><br><span class="line">&#125;else&#123;</span><br><span class="line">        $str &#x3D; $_GET[&#39;num&#39;];</span><br><span class="line">        $blacklist &#x3D; [&#39; &#39;, &#39;\t&#39;, &#39;\r&#39;, &#39;\n&#39;,&#39;\&#39;&#39;, &#39;&quot;&#39;, &#39;&#96;&#39;, &#39;\[&#39;, &#39;\]&#39;,&#39;\$&#39;,&#39;\\&#39;,&#39;\^&#39;];</span><br><span class="line">        foreach ($blacklist as $blackitem) &#123;</span><br><span class="line">                if (preg_match(&#39;&#x2F;&#39; . $blackitem . &#39;&#x2F;m&#39;, $str)) &#123;</span><br><span class="line">                        die(&quot;what are you want to do?&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        eval(&#39;echo &#39;.$str.&#39;;&#39;);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>这里后端对特殊符号做了一些过滤，而且除了这个过滤，还有waf拦截字符串的输入。然后就想利用http走私来绕过。</p>
-<p>因为这里是get请求，而content-length是在post才会有用，所以这里跟cl其实关系不大，但是利用起来也不会报错。</p>
-<p>这里我最开始就是想用cl和chunked结合起来去绕过。</p>
-<p><img src="https://s2.ax1x.com/2019/10/31/KTlKTH.png" alt="image"></p>
-<p>这里的cl设置多少都无所谓，只要设置了chunked，并且最后由\r\n那么就能成功执行，如果没有\r\n那么就会一直waiting。</p>
-<p>于是我想着能不能重新构造一个请求头来试试：</p>
-<p><img src="https://s2.ax1x.com/2019/10/31/KTlz9I.png" alt="image"></p>
-<p>这里第一个请求头那一定得是keep-alive，然后设置content-length为5。目的是让tcp能够持续响应，而且这里服务器会因为cl为5只识别num=1，后面的一大串就被安排到了下一轮的请求里。（最后的chunked后面还是得跟两次\r\n来控制块）</p>
-<p>说到这里，感觉这道题其实没怎么利用到http走私，主要还是用分块传输chunked方法来绕过waf。但是毕竟也是通过这个点学习了http走私的知识，所以就记录下来。</p>
-<p>如果各位有看到不对的地方，还请斧正！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/06/%E7%94%B1Roarctf%20Easy%20Calc%E5%BC%95%E8%B5%B7%E5%AF%B9http%E8%B5%B0%E7%A7%81%E5%92%8C%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BB%95%E8%BF%87waf%E7%9A%84%E6%80%9D%E8%80%83/" data-id="ck6tl19jz0006vztl88nk2cvv" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91/">开发</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/" rel="tag">xss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91/" rel="tag">开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag">渗透测试</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/web/" style="font-size: 20px;">web</a> <a href="/tags/xss/" style="font-size: 10px;">xss</a> <a href="/tags/%E5%BC%80%E5%8F%91/" style="font-size: 10px;">开发</a> <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" style="font-size: 10px;">渗透测试</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/02/20/%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%BD%91%E7%AB%99Title%20/">工具开发之获取网站Title</a>
-          </li>
-        
-          <li>
-            <a href="/2020/02/20/xss%20game%E6%8C%91%E6%88%98%E7%AC%94%E8%AE%B0/">xss game挑战笔记</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/21/%E8%BF%87%E6%BB%A4in,or%E5%AD%97%E7%AC%A6%E7%9A%84sql%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/">过滤in,or字符的sql注入学习</a>
-          </li>
-        
-          <li>
-            <a href="/2019/11/09/%E6%B5%85%E6%9E%90html%E8%A7%A3%E6%9E%90%E6%9C%BA%E5%88%B6/">对浏览器和html解析机制的理解</a>
-          </li>
-        
-          <li>
-            <a href="/2019/11/06/%E7%94%B1Roarctf%20Easy%20Calc%E5%BC%95%E8%B5%B7%E5%AF%B9http%E8%B5%B0%E7%A7%81%E5%92%8C%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BB%95%E8%BF%87waf%E7%9A%84%E6%80%9D%E8%80%83/">由Roarctf Easy Calc引起对http走私和分块传输绕过waf的思考</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 Da13<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
   
 </nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/20/%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%BD%91%E7%AB%99Title%20/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Da13">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/123.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Da13's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/20/%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%BD%91%E7%AB%99Title%20/" itemprop="url">工具开发之获取网站Title</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-20T00:23:01+08:00">
+                2020-02-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
+      
+      
+
+      
+        
+          
+          文章先发于星盟公众号
+前言在做渗透测试时，一般甲方都会直接扔上万个url，然后需要我们从中挖到漏洞。那么第一步就是从这些url中筛选出正常的网站，并且简单的筛选出哪些网站是可值得去挖掘的，哪些网站是可能存在的，但是页面显示404，403等，哪些网站是不存在的直接就可以放弃的。
+项目介绍我这里用了1.
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/02/20/%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%8E%B7%E5%8F%96%E7%BD%91%E7%AB%99Title%20/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
 
   
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
   
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/20/xss%20game%E6%8C%91%E6%88%98%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Da13">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/123.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Da13's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/20/xss%20game%E6%8C%91%E6%88%98%E7%AC%94%E8%AE%B0/" itemprop="url">xss game挑战笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-20T00:04:14+08:00">
+                2020-02-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          文章先发于星盟公众号
+前话之前对xss接触比较少，只是会基础的alert操作，至于原理，为什么可以这么编码等问题一直都是模模糊糊的，所以这段时间恶补一下xss基础知识。大佬略过，如果文章内容有什么不对的地方还请大家斧正！
+在文章开始之前先放两个链接，都是可以加深对js,html编码理解的文章，个人觉
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/02/20/xss%20game%E6%8C%91%E6%88%98%E7%AC%94%E8%AE%B0/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/21/%E8%BF%87%E6%BB%A4in,or%E5%AD%97%E7%AC%A6%E7%9A%84sql%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Da13">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/123.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Da13's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/21/%E8%BF%87%E6%BB%A4in,or%E5%AD%97%E7%AC%A6%E7%9A%84sql%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/" itemprop="url">过滤in,or字符的sql注入学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-21T22:42:41+08:00">
+                2020-01-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          在sql注入中，有时候会遇见一些过滤，将in或者or之类的匹配出来，这样传统的通过information_schema是得不出来列名的。
+这里引入一个sys的一个表
+
+可以看到这里有很多表名。
+
+这里有很多$符号的表名，这些表单里面就存在很多信息。
+
+
+这里就出现了我创建的一个表。
+这里还可以用
+1
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/01/21/%E8%BF%87%E6%BB%A4in,or%E5%AD%97%E7%AC%A6%E7%9A%84sql%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/%E6%B5%85%E6%9E%90html%E8%A7%A3%E6%9E%90%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Da13">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/123.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Da13's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/09/%E6%B5%85%E6%9E%90html%E8%A7%A3%E6%9E%90%E6%9C%BA%E5%88%B6/" itemprop="url">对浏览器和html解析机制的理解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-09T14:05:57+08:00">
+                2019-11-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          之前在看xss的时候老是不知道为什么不同编码，有的会被解析有的不会被解析，所以就想静下来，找个时间把这些基础点理清楚了。毕竟基础是很重要！！！
+中途我参考过http://bobao.360.cn/learning/detail/292.html讲的很详细了。下面是我自己的总结。
+html实体我是由浅
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/11/09/%E6%B5%85%E6%9E%90html%E8%A7%A3%E6%9E%90%E6%9C%BA%E5%88%B6/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/06/%E7%94%B1Roarctf%20Easy%20Calc%E5%BC%95%E8%B5%B7%E5%AF%B9http%E8%B5%B0%E7%A7%81%E5%92%8C%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BB%95%E8%BF%87waf%E7%9A%84%E6%80%9D%E8%80%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Da13">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/123.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Da13's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/06/%E7%94%B1Roarctf%20Easy%20Calc%E5%BC%95%E8%B5%B7%E5%AF%B9http%E8%B5%B0%E7%A7%81%E5%92%8C%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BB%95%E8%BF%87waf%E7%9A%84%E6%80%9D%E8%80%83/" itemprop="url">由Roarctf Easy Calc引起对http走私和分块传输绕过waf的思考</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-06T00:29:00+08:00">
+                2019-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          之前在做roarctf第一个web时候读到过关于php解析漏洞的文章。
+https://www.freebuf.com/articles/web/213359.html
+但是用的是在num参数前面构造一个%20来绕过waf。
+
+但是后来看群里有个师傅提起了http走私协议。于是就去学习了一下。
+HT
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/11/06/%E7%94%B1Roarctf%20Easy%20Calc%E5%BC%95%E8%B5%B7%E5%AF%B9http%E8%B5%B0%E7%A7%81%E5%92%8C%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BB%95%E8%BF%87waf%E7%9A%84%E6%80%9D%E8%80%83/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/123.jpg"
+                alt="Da13" />
+            
+              <p class="site-author-name" itemprop="name">Da13</p>
+              <p class="site-description motion-element" itemprop="description">低调做人，高调做事</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.virtua1.cn" title="Virtua1" target="_blank">Virtua1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://yml-sec.top" title="夜莫离" target="_blank">夜莫离</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://nightrainy.github.io/" title="知世" target="_blank">知世</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://reb0rn.design" title="张灵灵" target="_blank">张灵灵</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.ydspoplar.top/" title="杨大叔" target="_blank">杨大叔</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Da13</span>
+
+  
+</div>
+
+
+ 
+
+
+
+  <span class="post-meta-divider"></span>
 
 
 
 
-<script src="/js/script.js"></script>
 
 
 
+<div class="powered-by">
+<i class="fa fa-user-md"></i>
+<span id="busuanzi_container_site_uv">
+  本站总访客数:<span id="busuanzi_value_site_uv"></span>&nbsp;&nbsp;| 
+</span>
+<span id="busuanzi_container_site_pv">
+    &nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+</div>
+</div>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
 
   </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>
