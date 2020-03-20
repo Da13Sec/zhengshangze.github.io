@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="渗透测试,开发," />
+  <meta name="keywords" content="渗透测试," />
 
 
 
@@ -81,27 +81,24 @@
 
 
 
-<meta name="description" content="前言在做渗透测试时，一般甲方都会直接扔上万个url，然后需要我们从中挖到漏洞。那么第一步就是从这些url中筛选出是否是正常存活状态的网站，并且找出哪些网站是可值得去挖掘的。 项目介绍文件名: Titlescan.py 开发语言: python3.8 第三方库：asynciocodecsaiohttpselenium 用法:  将要测试的urls保存为Titlescan.py同级目录下的urls.t">
+<meta name="description" content="#介绍 ClickHouse是一个用于联机分析(OLAP)的列式数据库管理系统(DBMS)。 它不同于一般的关系数据库。像mysql，sqlserver都是以行为单位存储的，像这样：  但是clickhouse不是，它是以列式为单位存储的：  那么这样存储有什么不一样呢？ 在讲为什么之前我们首先先说一个概念：OLAP(来源百度百科) 1OLAP:联机分析处理OLAP是一种软件技术，它使分析人员能够">
 <meta property="og:type" content="article">
-<meta property="og:title" content="信息收集整理小工具——快速筛选分类正常存活网站并获取标题">
-<meta property="og:url" content="http://yoursite.com/2020/02/20/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E6%95%B4%E7%90%86%E5%B0%8F%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94%E5%BF%AB%E9%80%9F%E7%AD%9B%E9%80%89%E5%88%86%E7%B1%BB%E6%AD%A3%E5%B8%B8%E5%AD%98%E6%B4%BB%E7%BD%91%E7%AB%99%E5%B9%B6%E8%8E%B7%E5%8F%96%E6%A0%87%E9%A2%98/index.html">
+<meta property="og:title" content="利用clickhouse的信息搜集">
+<meta property="og:url" content="http://yoursite.com/2020/03/20/%E5%88%A9%E7%94%A8clickhouse%E7%9A%84%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/index.html">
 <meta property="og:site_name" content="Da13&#39;s blog">
-<meta property="og:description" content="前言在做渗透测试时，一般甲方都会直接扔上万个url，然后需要我们从中挖到漏洞。那么第一步就是从这些url中筛选出是否是正常存活状态的网站，并且找出哪些网站是可值得去挖掘的。 项目介绍文件名: Titlescan.py 开发语言: python3.8 第三方库：asynciocodecsaiohttpselenium 用法:  将要测试的urls保存为Titlescan.py同级目录下的urls.t">
-<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3VDdv6.png">
-<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3V29IO.png">
-<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3V4K2D.png">
-<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3V40MQ.png">
-<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3Vo1r4.png">
-<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3VTyXF.png">
-<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3VTXtI.png">
-<meta property="og:image" content="https://s2.ax1x.com/2020/02/19/3V75Us.png">
-<meta property="article:published_time" content="2020-02-20T08:52:03.102Z">
-<meta property="article:modified_time" content="2020-02-20T09:00:51.533Z">
+<meta property="og:description" content="#介绍 ClickHouse是一个用于联机分析(OLAP)的列式数据库管理系统(DBMS)。 它不同于一般的关系数据库。像mysql，sqlserver都是以行为单位存储的，像这样：  但是clickhouse不是，它是以列式为单位存储的：  那么这样存储有什么不一样呢？ 在讲为什么之前我们首先先说一个概念：OLAP(来源百度百科) 1OLAP:联机分析处理OLAP是一种软件技术，它使分析人员能够">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/10/8iWQxS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/03/10/8ifFJ0.png">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gd08k1y5y5j31k408itd5.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gd09b7lmrlj31j20ammzl.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gd0bg62frcj31m402wwf7.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gd0bq9ubjuj30u00ysqdn.jpg">
+<meta property="article:published_time" content="2020-03-20T05:24:00.159Z">
+<meta property="article:modified_time" content="2020-03-20T05:27:02.579Z">
 <meta property="article:author" content="Da13">
 <meta property="article:tag" content="渗透测试">
-<meta property="article:tag" content="开发">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.ax1x.com/2020/02/19/3VDdv6.png">
+<meta name="twitter:image" content="https://s2.ax1x.com/2020/03/10/8iWQxS.png">
 
 
 
@@ -131,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/02/20/信息收集整理小工具——快速筛选分类正常存活网站并获取标题/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/03/20/利用clickhouse的信息搜集/"/>
 
 
 
 
 
-  <title>信息收集整理小工具——快速筛选分类正常存活网站并获取标题 | Da13's blog</title>
+  <title>利用clickhouse的信息搜集 | Da13's blog</title>
   
 
 
@@ -274,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/20/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E6%95%B4%E7%90%86%E5%B0%8F%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94%E5%BF%AB%E9%80%9F%E7%AD%9B%E9%80%89%E5%88%86%E7%B1%BB%E6%AD%A3%E5%B8%B8%E5%AD%98%E6%B4%BB%E7%BD%91%E7%AB%99%E5%B9%B6%E8%8E%B7%E5%8F%96%E6%A0%87%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/20/%E5%88%A9%E7%94%A8clickhouse%E7%9A%84%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Da13">
@@ -291,7 +288,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">信息收集整理小工具——快速筛选分类正常存活网站并获取标题</h1>
+          <h1 class="post-title" itemprop="name headline">利用clickhouse的信息搜集</h1>
         
 
         <div class="post-meta">
@@ -303,8 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-20T16:52:03+08:00">
-                2020-02-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-20T13:24:00+08:00">
+                2020-03-20
               </time>
             
 
@@ -326,8 +323,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
-                    <span itemprop="name">开发</span>
+                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透测试</span>
                   </a>
                 </span>
 
@@ -363,51 +360,76 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在做渗透测试时，一般甲方都会直接扔上万个url，然后需要我们从中挖到漏洞。那么第一步就是从这些url中筛选出是否是正常存活状态的网站，并且找出哪些网站是可值得去挖掘的。</p>
-<h1 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h1><p>文件名: Titlescan.py</p>
-<p>开发语言: python3.8</p>
-<p>第三方库：asyncio<br>codecs<br>aiohttp<br>selenium</p>
-<p>用法:  将要测试的urls保存为Titlescan.py同级目录下的urls.txt。然后直接运行。</p>
-<p>结果说明:  A.txt,B.txt,C.txt,D.txt。<br>A是存在的正常网站，B是可能存在的网站，C是极大可能不存在的网站，D不是一个网站</p>
-<p>测试数据数量: 10605</p>
-<p>测试时间：16-20min</p>
-<h2 id="构思"><a href="#构思" class="headerlink" title="构思"></a>构思</h2><p>本人最初做这个项目的时候，代码能力很薄弱（虽然现在也好不到哪去）。</p>
-<p>只能思考到简单的for循环一个一个去尝试，request到如果是200，3xx就表示一个正常的网站，其他都是不存在的。</p>
-<p>但是后来硬糖师傅替我引导了一下，举了一个简单的例子。</p>
-<p>咱们去访问<a href="https://www.baidu.com" target="_blank" rel="noopener">https://www.baidu.com</a></p>
-<p>返回的状态码是200，那如果访问<a href="https://www.baidu.com/dfsfsfdfs呢？（域名后面的目录是随机的）我起初想的是应该是404了吧。可是实际上返回的并不是404。" target="_blank" rel="noopener">https://www.baidu.com/dfsfsfdfs呢？（域名后面的目录是随机的）我起初想的是应该是404了吧。可是实际上返回的并不是404。</a></p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3VDdv6.png" alt="image"></p>
-<p>并且可以看到这里的url也并不是我们之前访问的url，而是进入了百度预先设定好的error.html，状态码变成了304。</p>
-<p>也就是说我们访问了一个不存在的页面，百度收到我们的请求，但是并不是直接返回404，而是先是经过解析判断了是否存在该目录或文件。</p>
-<p>若不存在就呈现这个error的页面给我们。但是实际上我们需要知道的是百度后端是已经处理了我们的请求了,然后去进行了判断返回了304和error页面给我们。</p>
-<p>难道我们就能片面的说百度因为返回了一个错误的页面或者非200的页面就说该网站不存在吗？这显然是不合情理的。</p>
-<p>所以我在硬糖师傅的引导下写了一个如何判断网站是否正常存活的简单的流程图。</p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3V29IO.png" alt="image"></p>
-<p>当然在实际情况下并没有这么简单，最后的结果还有很多细节需要校验，修正。</p>
-<p>然后思路大致方向有了后，就该想想代码效率问题了。</p>
-<p>对网站的请求和回应会经过http协议，这样就会出现一个等待时间。如果一个一个的顺序去请求，那得跑到何年何月。</p>
-<p>于是我就想着要么换成多线程或者异步协程。这两者的区别和优缺点在这里就不说了。当时我用两个方法都写了一遍，发现异步协程在这种情况下确实比多线程快的多。</p>
-<h2 id="代码讲解"><a href="#代码讲解" class="headerlink" title="代码讲解"></a>代码讲解</h2><p><img src="https://s2.ax1x.com/2020/02/19/3V4K2D.png" alt="image"><br>在python3.7以上是可以直接asyncio.run()来作为asyncio的入口函数的，但是在低版本中就得创建loop。</p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3V40MQ.png" alt="image"></p>
-<p>verdictUrl()函数是将urls.txt中所有的url拿出来放进asyncio.Queue()的队列里面。</p>
-<p>然后用aiohttp.ClientSession作为seesion来访问url。接着开启100个并发，将session和队列都放进get_title中。</p>
-<p>await asyncio.wait(tasks)开启异步协程。（这里建议并发的数量在50到100中间，因为小于50会增加脚本时间，大于100可能会对结果有影响）</p>
-<p>至于为什么用aiohttp不用httpx是本人发现httpx对https协议的网站不是很友好，请求的时候不是很准确，会报ssl的错，也是因为本人能力有限了，没有找到好的解决办法。</p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3Vo1r4.png" alt="image"></p>
-<p>在get_title函数里面我对常出现的状态进行了分类处理，可以看到特别是随机目录访问的时候的状态码是404和200的时候会单独进入判断就是为了提高获取到的网站的准确性。</p>
-<p>至于这里为什么会有个driver，我解释一下。</p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3VTyXF.png" alt="image"></p>
-<p>因为python的requests访问和浏览器直接访问是有一定区别的，况且在异步加载中可能会出现数据丢失的情况，也就是返回的代码和浏览器中的有差别。所以在某些地方我会用headless chrome去访问，获取title。</p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3VTXtI.png" alt="image"><br><img src="https://s2.ax1x.com/2020/02/19/3V75Us.png" alt="image"></p>
-<p>在four0four和two00函数中也会对根目录请求的状态码进行讨论确保结论的准确高效。</p>
-<p>特别是在随机访问200，根目录访问200的情况下，我用了content_length和返回的源码长度去判断该网站是否是正常的。</p>
-<p>因为有些网站访问返回200的状态码，有可能是有自己设置的404页面，后端是有进行处理的。也有可能是这个网站什么都没有访问什么都是空。</p>
-<p>这些细节特别需要注意，因为会为后期的渗透省下一些时间。</p>
-<p>最后说一下对url和结果的保存使用了字典的形式，url是键，title是值。</p>
-<h1 id="有待改进之处"><a href="#有待改进之处" class="headerlink" title="有待改进之处"></a>有待改进之处</h1><p>1.脚本获取title时有些会获取不完整，会导致标题为空。</p>
-<p>2.异步还是容易会出现漏包的情况。以后会慢慢完善代码。</p>
-<h1 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h1><p>通过这次的工具编写，让我意识到了自己代码能力还是太弱，需要长时间锻炼。其实就是对网站一些细节的地方进行了深入的了解。</p>
-<p>最后：如果大佬们有更好的思路或者见解，欢迎来交流！</p>
+        <p>#介绍</p>
+<p>ClickHouse是一个用于联机分析(OLAP)的列式数据库管理系统(DBMS)。</p>
+<p>它不同于一般的关系数据库。像mysql，sqlserver都是以行为单位存储的，像这样：</p>
+<p><img src="https://s2.ax1x.com/2020/03/10/8iWQxS.png" alt=""></p>
+<p>但是clickhouse不是，它是以列式为单位存储的：</p>
+<p><img src="https://s2.ax1x.com/2020/03/10/8ifFJ0.png" alt=""></p>
+<p>那么这样存储有什么不一样呢？</p>
+<p>在讲为什么之前我们首先先说一个概念：OLAP(来源百度百科)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OLAP:联机分析处理OLAP是一种软件技术，它使分析人员能够迅速、一致、交互地从各个方面观察信息，以达到深入理解数据的目的。它具有FASMI(Fast Analysis of Shared Multidimensional Information)，即共享多维信息的快速分析的特征。</span><br></pre></td></tr></table></figure>
+
+<p>也就是一个字，快！</p>
+<p><strong>OLAP场景的关键特征:</strong></p>
+<ul>
+<li>大多数是读请求</li>
+<li>数据总是以相当大的批(&gt; 1000 rows)进行写入</li>
+<li>不修改已添加的数据</li>
+<li>每次查询都从数据库中读取大量的行，但是同时又仅需要少量的列</li>
+<li>宽表，即每个表包含着大量的列</li>
+<li>较少的查询(通常每台服务器每秒数百个查询或更少)</li>
+<li>对于简单查询，允许延迟大约50毫秒</li>
+<li>列中的数据相对较小： 数字和短字符串(例如，每个URL 60个字节)</li>
+<li>处理单个查询时需要高吞吐量（每个服务器每秒高达数十亿行）</li>
+<li>事务不是必须的</li>
+<li>对数据一致性要求低</li>
+<li>每一个查询除了一个大表外都很小</li>
+<li>查询结果明显小于源数据，换句话说，数据被过滤或聚合后能够被盛放在单台服务器的内存中</li>
+</ul>
+<p>也就是说如果我们要从互联网上筛选大数据进行分析的话，需要存入数据库，即符合OLAP的应用特征。</p>
+<p>而相对于行数据库而言，列数据库是更适合OLAP场景的。原因在官方文档里面有很明确的说明<a href="https://clickhouse.tech/docs/zh/#input-output" target="_blank" rel="noopener">https://clickhouse.tech/docs/zh/#input-output</a></p>
+<p>通俗易懂的就是：</p>
+<ol>
+<li><p>行存储使用逐行处理模式，每次只处理一行数据；而列存储索引使用批处理模式，每次处理一批数据行。</p>
+</li>
+<li><p>行存储是逐行存储（Row Store），每一个Page存储多行数据，而列存储（Column Store）把数据表中的每一列单独存储在Page集合中，这意味着，Page集合中存储的是某一列的数据，而不是一行中所有列的数据。</p>
+<p>在读取数据时，行存储把一行的所有列都加载到内存，即使有些列根本不会用到；而列存储只把需要的列加载到内存中，不需要的列不会被加载到内存中。</p>
+</li>
+<li><p>列存储索引自动对数据进行压缩处理，由于同一行的数据具有很高的相似性，压缩率很高，数据读取更快速。</p>
+</li>
+</ol>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>安装之前先说一下，我用的parallels desktop虚拟机，内存我是4个g（越大越好）,1个T的硬盘，安装好后还要扩展一下虚拟空间，要不然还是很小的,以下连接是扩充的教程。</p>
+<p><a href="https://blog.csdn.net/weixin_40436144/article/details/86235432" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40436144/article/details/86235432</a></p>
+<p>在ubuntu下：</p>
+<p> 先在源文件加一句话：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deb http:&#x2F;&#x2F;repo.yandex.ru&#x2F;clickhouse&#x2F;deb&#x2F;stable&#x2F; main&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>然后安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install dirmngr    # optional</span><br><span class="line">sudo apt-key adv --keyserver hkp:&#x2F;&#x2F;keyserver.ubuntu.com:80 --recv E0C56BD4    # optional</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install clickhouse-client clickhouse-server</span><br></pre></td></tr></table></figure>
+
+<p>在centos7下建议用rpm安装，快一点（推荐）：</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gd08k1y5y5j31k408itd5.jpg" alt=""></p>
+<p>可以在这里下载rpm包<br><a href="https://repo.yandex.ru/clickhouse/rpm/stable/x86_64/" target="_blank" rel="noopener">https://repo.yandex.ru/clickhouse/rpm/stable/x86_64/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh *.rpm</span><br></pre></td></tr></table></figure>
+
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>我用clickhouse去收集dns记录，就是看中了它的高效性的列存储。</p>
+<p>我下载了opendata上的fdns总共大概600个g左右，全部导入clickhouse。</p>
+<p>sql的增删改查基本上还是一样的。</p>
+<p>启动服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service clickhouse-server start</span><br></pre></td></tr></table></figure>
+
+<p>命令行连接服务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo clickhouse-client</span><br></pre></td></tr></table></figure>
+
+<p>然后把数据导入数据库就ok了。没什么难度，官方手册上有详细说明。</p>
+<h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gd09b7lmrlj31j20ammzl.jpg" alt=""></p>
+<p>可以看到这里搜索速度是每秒接近三百万行。如果是mysql这种行式数据库，就很慢了，得搜索很久了。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gd0bg62frcj31m402wwf7.jpg" alt=""></p>
+<p>最后看到有七十亿行的数据。</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gd0bq9ubjuj30u00ysqdn.jpg" alt=""></p>
+<p>最后我是针对某个src做的一个子域名信息搜集的结果。可以看到信息量还是很大的。</p>
+<h1 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h1><p>clickhouse本身是适合集群工作的，这样可以充分发挥它的优势，但是限于资源有限，所以这个就只能留着以后有机会改进了。</p>
 
       
     </div>
@@ -427,8 +449,6 @@
           
             <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag"># 渗透测试</a>
           
-            <a href="/tags/%E5%BC%80%E5%8F%91/" rel="tag"># 开发</a>
-          
         </div>
       
 
@@ -440,8 +460,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/02/20/xss%20game%E6%8C%91%E6%88%98%E7%AC%94%E8%AE%B0/" rel="next" title="xss game挑战笔记">
-                <i class="fa fa-chevron-left"></i> xss game挑战笔记
+              <a href="/2020/03/14/Thinkphp5.0.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%86%E6%9E%90/" rel="next" title="Thinkphp5.0.24反序列化分析">
+                <i class="fa fa-chevron-left"></i> Thinkphp5.0.24反序列化分析
               </a>
             
           </div>
@@ -449,10 +469,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/03/14/Thinkphp5.0.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%86%E6%9E%90/" rel="prev" title="Thinkphp5.0.24反序列化分析">
-                Thinkphp5.0.24反序列化分析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -625,7 +641,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目介绍"><span class="nav-number">2.</span> <span class="nav-text">项目介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#构思"><span class="nav-number">2.1.</span> <span class="nav-text">构思</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码讲解"><span class="nav-number">2.2.</span> <span class="nav-text">代码讲解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#有待改进之处"><span class="nav-number">3.</span> <span class="nav-text">有待改进之处</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结束语"><span class="nav-number">4.</span> <span class="nav-text">结束语</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结果"><span class="nav-number">3.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考"><span class="nav-number">4.</span> <span class="nav-text">思考</span></a></li></ol></div>
             
 
           </div>
